@@ -1,0 +1,41 @@
+package io.github.winnpixie.pixiecraft.commons.commands;
+
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.command.TabExecutor;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.List;
+
+public abstract class PxCommand<P extends JavaPlugin> implements TabExecutor {
+    private final String name;
+    private final P plugin;
+
+    public PxCommand(String name, P plugin) {
+        this.name = name;
+        this.plugin = plugin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public P getPlugin() {
+        return plugin;
+    }
+
+    public boolean register() {
+        PluginCommand command = plugin.getCommand(name);
+        if (command == null) return false;
+
+        command.setExecutor(this);
+        command.setTabCompleter(this);
+        return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return List.of();
+    }
+}
