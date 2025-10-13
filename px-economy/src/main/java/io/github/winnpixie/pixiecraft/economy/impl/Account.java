@@ -37,17 +37,21 @@ public class Account implements IAccount {
             return false;
         }
 
-        setBalance(getBalance() + amount);
+        this.balance += amount;
         return true;
     }
 
     @Override
     public boolean withdraw(long amount) {
-        if (amount > getBalance()) {
+        if (amount < 0L) {
             return false;
         }
 
-        setBalance(getBalance() - amount);
+        if (balance < amount) {
+            return false;
+        }
+
+        this.balance -= amount;
         return true;
     }
 }
