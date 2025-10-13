@@ -1,3 +1,3 @@
-name: 'Commons'
-version: 0.1
-main: io.github.winnpixie.pixiecraft.commons.PxCommonsPlugin
+name: 'pxCommons'
+version: '0.1'
+main: 'io.github.winnpixie.pixiecraft.commons.plugin.PxCommonsPlugin'

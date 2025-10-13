@@ -1,4 +1,4 @@
-package io.github.winnpixie.pixiecraft.commons;
+package io.github.winnpixie.pixiecraft.commons.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

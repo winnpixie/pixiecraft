@@ -1,5 +1,14 @@
-name: 'Economy'
-version: 0.1
-main: io.github.winnpixie.pixiecraft.economy.PxEconomyPlugin
+name: 'pxEconomy'
+version: '0.1'
+main: 'io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin'
 depend:
-  - 'Commons'
+  - 'pxCommons'
+
+commands:
+  economy:
+    aliases: [ 'eco' ]
+    description: 'Manage the economy.'
+  balance:
+    aliases: [ 'bal' ]
+    description: 'View the wallet balance of yourself or another online.'
+    usage: '/balance [user]'

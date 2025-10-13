@@ -8,11 +8,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
-public abstract class PxCommand<P extends JavaPlugin> implements TabExecutor {
+public abstract class BaseCommand<P extends JavaPlugin> implements TabExecutor {
     private final String name;
     private final P plugin;
 
-    public PxCommand(String name, P plugin) {
+    protected BaseCommand(String name, P plugin) {
         this.name = name;
         this.plugin = plugin;
     }

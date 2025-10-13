@@ -1,12 +1,13 @@
 package io.github.winnpixie.pixiecraft.commons.commands;
 
+import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public abstract class PxPlayerCommand<P extends JavaPlugin> extends PxCommand<P> {
-    public PxPlayerCommand(String name, P plugin) {
+public abstract class PlayerCommand<P extends JavaPlugin> extends BaseCommand<P> {
+    protected PlayerCommand(String name, P plugin) {
         super(name, plugin);
     }
 
@@ -16,6 +17,7 @@ public abstract class PxPlayerCommand<P extends JavaPlugin> extends PxCommand<P>
             return execute(player, command, label, args);
         }
 
+        sender.spigot().sendMessage(CommonWarnings.PLAYERS_ONLY);
         return true;
     }
 
