@@ -1,8 +1,8 @@
 package io.github.winnpixie.pixiecraft.economy.impl;
 
-import io.github.winnpixie.pixiecraft.economy.model.IAccountHolder;
-import io.github.winnpixie.pixiecraft.economy.model.IBank;
-import io.github.winnpixie.pixiecraft.economy.model.IUser;
+import io.github.winnpixie.pixiecraft.economy.api.IAccountHolder;
+import io.github.winnpixie.pixiecraft.economy.api.IBank;
+import io.github.winnpixie.pixiecraft.economy.api.IUser;
 
 import java.util.Map;
 import java.util.UUID;

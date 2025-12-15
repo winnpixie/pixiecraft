@@ -1,7 +1,7 @@
 package io.github.winnpixie.pixiecraft.economy.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
-import io.github.winnpixie.pixiecraft.economy.model.IUser;
+import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

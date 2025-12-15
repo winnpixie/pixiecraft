@@ -1,4 +1,4 @@
-package io.github.winnpixie.pixiecraft.economy.model;
+package io.github.winnpixie.pixiecraft.economy.api;
 
 import java.util.UUID;
 

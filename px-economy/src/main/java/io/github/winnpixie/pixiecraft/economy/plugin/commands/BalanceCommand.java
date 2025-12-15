@@ -3,7 +3,7 @@ package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
 import io.github.winnpixie.pixiecraft.commons.commands.BaseCommand;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
-import io.github.winnpixie.pixiecraft.economy.model.IUser;
+import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;

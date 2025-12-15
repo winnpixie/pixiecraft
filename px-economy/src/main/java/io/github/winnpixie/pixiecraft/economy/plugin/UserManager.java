@@ -1,7 +1,7 @@
 package io.github.winnpixie.pixiecraft.economy.plugin;
 
+import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.impl.User;
-import io.github.winnpixie.pixiecraft.economy.model.IUser;
 import org.bukkit.entity.Player;
 
 import java.util.Map;

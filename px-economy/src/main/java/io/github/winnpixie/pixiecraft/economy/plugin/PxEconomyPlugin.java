@@ -25,4 +25,8 @@ public class PxEconomyPlugin extends JavaPlugin {
         new EconomyCommand(this).register();
         new BalanceCommand(this).register();
     }
+
+    @Override
+    public void onDisable() {
+    }
 }

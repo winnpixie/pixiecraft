@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.economy.impl;
 
-import io.github.winnpixie.pixiecraft.economy.model.IAccount;
+import io.github.winnpixie.pixiecraft.economy.api.IAccount;
 
 public class Account implements IAccount {
     private final String name;

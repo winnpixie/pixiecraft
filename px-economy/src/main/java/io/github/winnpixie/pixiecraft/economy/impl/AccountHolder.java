@@ -1,7 +1,7 @@
 package io.github.winnpixie.pixiecraft.economy.impl;
 
-import io.github.winnpixie.pixiecraft.economy.model.IAccount;
-import io.github.winnpixie.pixiecraft.economy.model.IAccountHolder;
+import io.github.winnpixie.pixiecraft.economy.api.IAccount;
+import io.github.winnpixie.pixiecraft.economy.api.IAccountHolder;
 
 import java.util.Collection;
 import java.util.Map;
