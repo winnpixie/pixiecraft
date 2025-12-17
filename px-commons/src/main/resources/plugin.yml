@@ -1,3 +1,4 @@
 name: 'pxCommons'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.commons.plugin.PxCommonsPlugin'
+api-version: 1.21

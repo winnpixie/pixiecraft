@@ -1,5 +1,6 @@
 name: 'pxSocial'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin'
+api-version: 1.21
 depend:
   - 'pxCommons'

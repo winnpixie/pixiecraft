@@ -1,6 +1,7 @@
 name: 'pxEconomy'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin'
+api-version: 1.21
 depend:
   - 'pxCommons'
 
@@ -12,3 +13,6 @@ commands:
     aliases: [ 'bal' ]
     description: 'View the wallet balance of yourself or another online.'
     usage: '/balance [user]'
+  bank:
+    description: "Manage your bank accounts."
+    usage: "/bank <open|close|accounts|balance|deposit|withdraw> [account] [balance]"

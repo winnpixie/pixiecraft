@@ -40,11 +40,14 @@
     </dependencies>
 
     <modules>
+        <!-- Required by others! -->
         <module>px-commons</module>
+        <module>px-economy</module>
+
+        <!-- The rest. -->
         <module>px-agriculture</module>
         <module>px-anticheat</module>
         <module>px-combat</module>
-        <module>px-economy</module>
         <module>px-fx</module>
         <module>px-social</module>
     </modules>

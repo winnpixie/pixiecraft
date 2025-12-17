@@ -21,5 +21,5 @@ public abstract class PlayerCommand<P extends JavaPlugin> extends BaseCommand<P>
         return true;
     }
 
-    public abstract boolean execute(Player sender, Command command, String label, String[] args);
+    public abstract boolean execute(Player player, Command command, String label, String[] args);
 }

@@ -30,6 +30,12 @@ public class AccountHolder implements IAccountHolder {
 
     @Override
     public IAccount find(String name) {
-        return accounts.get(name);
+        for (IAccount account : accounts.values()) {
+            if (account.getName().equalsIgnoreCase(name)) {
+                return account;
+            }
+        }
+
+        return null;
     }
 }

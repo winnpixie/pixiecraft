@@ -1,3 +1,6 @@
 name: 'pxAntiCheat'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.anticheat.plugin.PxAntiCheatPlugin'
+api-version: 1.21
+depend:
+  - 'pxCommons'

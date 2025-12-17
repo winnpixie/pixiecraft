@@ -1,5 +1,6 @@
 package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 
+import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
 import io.github.winnpixie.pixiecraft.commons.commands.BaseCommand;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import org.bukkit.command.Command;
@@ -12,6 +13,11 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        return false;
+        if (!sender.hasPermission("eco.manage")) {
+            sender.spigot().sendMessage(CommonWarnings.LACKS_PERMISSION);
+            return false;
+        }
+
+        return true;
     }
 }

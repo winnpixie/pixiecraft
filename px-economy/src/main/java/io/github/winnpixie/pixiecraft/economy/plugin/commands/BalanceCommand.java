@@ -2,8 +2,8 @@ package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 
 import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
 import io.github.winnpixie.pixiecraft.commons.commands.BaseCommand;
-import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
+import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
@@ -27,21 +27,23 @@ public class BalanceCommand extends BaseCommand<PxEconomyPlugin> {
 
         if (target == null) {
             sender.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
-            return true;
+            return false;
         }
 
         IUser user = getPlugin().getUserManager().get(target);
         if (user == null) {
             sender.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
-            return true;
+            return false;
         }
 
-        sender.spigot().sendMessage(new ComponentBuilder("The requested user is carrying ")
+        sender.spigot().sendMessage(new ComponentBuilder(target.getName())
                 .color(ChatColor.GREEN)
-                .append("%.2f".formatted(user.getWallet().getBalance() / 100.00))
+                .append(" is carrying ")
                 .color(ChatColor.DARK_GREEN)
-                .append(" Fairy Dust")
+                .append("%.2f".formatted(user.getWallet().getBalance() / 100.00))
                 .color(ChatColor.LIGHT_PURPLE)
+                .append(" Fairy Dust")
+                .color(ChatColor.DARK_PURPLE)
                 .build());
         return true;
     }
