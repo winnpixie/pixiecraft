@@ -3,10 +3,13 @@ package io.github.winnpixie.pixiecraft.commons;
 import net.md_5.bungee.api.ChatColor;
 
 import java.util.Map;
+import java.util.function.Function;
+import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 public class TextHelper {
-    private static final Pattern HEX_PATTERN = Pattern.compile("[&\u00A7]#([a-f0-9]{6})|<#([a-f0-9]{6})>", Pattern.CASE_INSENSITIVE);
+    private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("[&\u00A7]#([a-f0-9]{6})", Pattern.CASE_INSENSITIVE);
+    private static final Pattern HEX_TAG_PATTERN = Pattern.compile("<#([a-f0-9]{6})>", Pattern.CASE_INSENSITIVE);
     private static final Pattern TAG_PATTERN = Pattern.compile("<([a-z]+)>", Pattern.CASE_INSENSITIVE);
     private static final Map<String, Character> TAGS_TO_CODES;
 
@@ -58,7 +61,7 @@ public class TextHelper {
     }
 
     public static String convertHexColors(String text) {
-        return HEX_PATTERN.matcher(text).replaceAll(match -> {
+        Function<MatchResult, String> transformer = match -> {
             String hex = match.group(1);
 
             StringBuilder builder = new StringBuilder("\u00A7x");
@@ -67,6 +70,9 @@ public class TextHelper {
             }
 
             return builder.toString();
-        });
+        };
+
+        text = LEGACY_HEX_PATTERN.matcher(text).replaceAll(transformer);
+        return HEX_TAG_PATTERN.matcher(text).replaceAll(transformer);
     }
 }

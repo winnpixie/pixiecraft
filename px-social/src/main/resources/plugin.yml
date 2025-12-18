@@ -4,3 +4,18 @@ main: 'io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin'
 api-version: 1.21
 depend:
   - 'pxCommons'
+
+commands:
+  channel:
+    description: 'Sets your chat messaging channel.'
+    usage: '/channel [channel]'
+  chatfilter:
+    description: 'Toggle chat message filters.'
+    usage: '/chatfilter <uwu|leet>'
+  color:
+    description: 'Set your chat message color.'
+    usage: '/color [RRGGBB]'
+  nickname:
+    aliases: [ 'nick' ]
+    description: 'Set your chat nickname.'
+    usage: '/nickname [name]'

@@ -1,17 +1,17 @@
 package io.github.winnpixie.pixiecraft.social.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
-import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
+import io.github.winnpixie.pixiecraft.commons.WrappedPDC;
+import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
+import io.github.winnpixie.pixiecraft.social.plugin.utilities.MessageHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import java.util.regex.Pattern;
+import java.util.Set;
 
 public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
-    private final Pattern uwuPattern = Pattern.compile("[uor]", Pattern.CASE_INSENSITIVE);
-    private final Pattern leetPattern = Pattern.compile("[abelostz]", Pattern.CASE_INSENSITIVE);
 
     public PlayerChatHandler(PxSocialPlugin plugin) {
         super(plugin);
@@ -22,43 +22,31 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player.getPersistentDataContainer());
+        WrappedPDC<PxSocialPlugin> pdc = new WrappedPDC<>(getPlugin(), player);
 
-        // TODO: Implement proper logic
-        if (!pdc.has("placeholder")) {
-            event.setMessage(toLeet(toUwU(message)));
+        String channel = pdc.getString("chat_channel");
+        if (!channel.equals("global")) {
+            Set<Player> recipients = event.getRecipients();
+            recipients.removeIf(recipient -> {
+                WrappedPDC<PxSocialPlugin> rpdc = new WrappedPDC<>(getPlugin(), recipient);
+                return !rpdc.getString("chat_channel").equals(channel);
+            });
         }
-    }
 
-    private String toUwU(String text) {
-        return uwuPattern.matcher(text).replaceAll(match -> {
-            String letter = match.group();
-            return switch (letter) {
-                case "o" -> "owo";
-                case "O" -> "OwO";
-                case "u" -> "uwu";
-                case "U" -> "UwU";
-                case "r" -> "w";
-                case "R" -> "W";
-                default -> letter;
-            };
-        });
-    }
+        if (pdc.has("uwu_filter") && pdc.getBoolean("uwu_filter")) {
+            message = MessageHelper.uwuify(message);
+        }
 
-    private String toLeet(String text) {
-        return leetPattern.matcher(text).replaceAll(match -> {
-            String letter = match.group();
-            return switch (letter) {
-                case "a", "A" -> "4";
-                case "b", "B" -> "6";
-                case "e", "E" -> "3";
-                case "l", "L" -> "1";
-                case "o", "O" -> "0";
-                case "s", "S" -> "5";
-                case "t", "T" -> "7";
-                case "z", "Z" -> "2";
-                default -> letter;
-            };
-        });
+        if (pdc.has("leet_filter") && pdc.getBoolean("leet_filter")) {
+            message = MessageHelper.hack(message);
+        }
+
+        if (pdc.has("chat_color")) {
+            message = String.format("%s%s", TextHelper.convertHexColors(String.format("<#%s>", pdc.getString("chat_color"))), message);
+        }
+
+        event.setMessage(message);
+        char channelColor = channel.equals("global") ? '8' : '7';
+        event.setFormat(String.format("\u00A7%c[#%s] \u00A7r<%%1$s\u00A7r> %%2$s", channelColor, channel));
     }
 }
