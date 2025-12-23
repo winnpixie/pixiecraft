@@ -1,13 +1,13 @@
 package io.github.winnpixie.pixiecraft.commons.commands;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Collections;
-import java.util.List;
 
 public abstract class BaseCommand<P extends JavaPlugin> implements TabExecutor {
     private final String name;
