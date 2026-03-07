@@ -3,8 +3,8 @@ package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
 import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
-import io.github.winnpixie.pixiecraft.economy.api.IAccount;
-import io.github.winnpixie.pixiecraft.economy.api.IAccountHolder;
+import io.github.winnpixie.pixiecraft.economy.api.IBankAccount;
+import io.github.winnpixie.pixiecraft.economy.api.IBankAccountHolder;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.plugin.EconomyWarnings;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
@@ -26,10 +26,10 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         }
 
         IUser user = getPlugin().getUserManager().get(player);
-        IAccountHolder holder = getPlugin().getCentralBank().find(user);
+        IBankAccountHolder holder = getPlugin().getCentralBank().find(user);
 
         if (args[0].equalsIgnoreCase("accounts")) {
-            for (IAccount account : holder.getAccounts()) {
+            for (IBankAccount account : holder.getAccounts()) {
                 player.spigot().sendMessage(new ComponentBuilder(account.getName())
                         .color(ChatColor.GREEN)
                         .append(": ")
@@ -47,7 +47,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
             return false;
         }
 
-        IAccount account = holder.find(args[1]);
+        IBankAccount account = holder.find(args[1]);
 
         return switch (args[0].toLowerCase()) {
             case "open" -> openAccount(player, holder, account, args[1]);
@@ -71,7 +71,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         };
     }
 
-    private boolean openAccount(Player player, IAccountHolder holder, IAccount existing, String name) {
+    private boolean openAccount(Player player, IBankAccountHolder holder, IBankAccount existing, String name) {
         if (existing != null) {
             player.spigot().sendMessage(new ComponentBuilder("Account ")
                     .color(ChatColor.YELLOW)
@@ -93,7 +93,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         return true;
     }
 
-    private boolean closeAccount(Player player, IAccountHolder holder, IAccount account) {
+    private boolean closeAccount(Player player, IBankAccountHolder holder, IBankAccount account) {
         if (account == null) {
             player.spigot().sendMessage(EconomyWarnings.INVALID_ACCOUNT);
             return false;
@@ -103,7 +103,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         return true;
     }
 
-    private boolean showBalance(Player player, IAccount account) {
+    private boolean showBalance(Player player, IBankAccount account) {
         if (account == null) {
             player.spigot().sendMessage(EconomyWarnings.INVALID_ACCOUNT);
             return false;
@@ -121,7 +121,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         return true;
     }
 
-    private boolean deposit(Player player, IUser user, IAccount account, String requestedAmount) {
+    private boolean deposit(Player player, IUser user, IBankAccount account, String requestedAmount) {
         if (account == null) {
             player.spigot().sendMessage(EconomyWarnings.INVALID_ACCOUNT);
             return false;
@@ -134,7 +134,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
 
         double parsed = Double.parseDouble(requestedAmount);
         long amount = (long) (parsed * 100.00);
-        if (!user.getWallet().withdraw(amount)) {
+        if (!user.getWallet().spend(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;
         }
@@ -155,7 +155,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         return true;
     }
 
-    private boolean withdraw(Player player, IUser user, IAccount account, String requestedAmount) {
+    private boolean withdraw(Player player, IUser user, IBankAccount account, String requestedAmount) {
         if (account == null) {
             player.spigot().sendMessage(EconomyWarnings.INVALID_ACCOUNT);
             return false;
@@ -173,7 +173,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
             return false;
         }
 
-        user.getWallet().deposit(amount);
+        user.getWallet().earn(amount);
 
         player.spigot().sendMessage(new ComponentBuilder("Withdrew ")
                 .color(ChatColor.DARK_GREEN)

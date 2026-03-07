@@ -1,0 +1,71 @@
+package io.github.winnpixie.pixiecraft.combat.plugin.listeners;
+
+import io.github.winnpixie.pixiecraft.combat.plugin.PxCombatPlugin;
+import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
+import io.github.winnpixie.pixiecraft.commons.MathHelper;
+import io.github.winnpixie.pixiecraft.commons.builders.ItemBuilder;
+import io.github.winnpixie.pixiecraft.economy.api.IUser;
+import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import org.bukkit.Material;
+import org.bukkit.Tag;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+
+public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
+    public PlayerCombatHandler(PxCombatPlugin plugin) {
+        super(plugin);
+    }
+
+    @EventHandler
+    private void onEntityDeath(EntityDeathEvent event) {
+        LivingEntity victim = event.getEntity();
+        if (!(victim.getLastDamageCause() instanceof EntityDamageByEntityEvent eveEvent)) {
+            return;
+        }
+
+        if (!(eveEvent.getDamager() instanceof Player attacker)) {
+            return;
+        }
+
+        if (victim instanceof Player poorSoul) {
+            handleBeheading(attacker, poorSoul);
+        } else {
+            handleCurrencyDrop(attacker);
+        }
+    }
+
+    private void handleBeheading(Player attacker, Player victim) {
+        Material heldItem = attacker.getInventory().getItemInMainHand().getType();
+        if (!Tag.ITEMS_SWORDS.isTagged(heldItem) && !Tag.ITEMS_AXES.isTagged(heldItem)) {
+            return;
+        }
+
+        ItemStack head = ItemBuilder.of(Material.PLAYER_HEAD)
+                .name("%s's head.".formatted(victim.getName()))
+                .craft(SkullMeta.class, skull -> skull.setOwnerProfile(victim.getPlayerProfile()));
+
+        attacker.getWorld().dropItemNaturally(victim.getLocation(), head);
+    }
+
+    private void handleCurrencyDrop(Player attacker) {
+        long drop = MathHelper.ceil(Math.random() * 100.0);
+
+        IUser user = PxEconomyPlugin.getInstance().getUserManager().get(attacker);
+        user.getWallet().earn(drop);
+
+        attacker.spigot().sendMessage(new ComponentBuilder("Picked up ")
+                .color(ChatColor.DARK_GREEN)
+                .append("%.2f".formatted(drop / 100.0))
+                .color(ChatColor.LIGHT_PURPLE)
+                .append(" Fairy Dust")
+                .color(ChatColor.DARK_PURPLE)
+                .build());
+    }
+}

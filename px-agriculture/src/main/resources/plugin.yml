@@ -1,0 +1,6 @@
+name: 'pxAgriculture'
+version: '0.1'
+main: 'io.github.winnpixie.pixiecraft.agriculture.plugin.PxAgriculturePlugin'
+api-version: 1.21
+depend:
+  - 'pxCommons'

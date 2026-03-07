@@ -11,4 +11,12 @@
     </parent>
     <artifactId>px-agriculture</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.github.winnpixie</groupId>
+            <artifactId>px-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 </project>

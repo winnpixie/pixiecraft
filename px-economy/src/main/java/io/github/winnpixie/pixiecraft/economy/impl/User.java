@@ -1,12 +1,13 @@
 package io.github.winnpixie.pixiecraft.economy.impl;
 
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
+import io.github.winnpixie.pixiecraft.economy.api.IWallet;
 
 import java.util.UUID;
 
 public class User implements IUser {
     private final UUID id;
-    private final Account wallet = new Account("wallet");
+    private final IWallet wallet = new Wallet();
 
     public User(UUID id) {
         this.id = id;
@@ -18,7 +19,7 @@ public class User implements IUser {
     }
 
     @Override
-    public Account getWallet() {
+    public IWallet getWallet() {
         return wallet;
     }
 }

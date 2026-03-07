@@ -9,11 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 import java.util.Map;
 
-public record WrappedPDC<P extends JavaPlugin>(P plugin,
+public record PDCWrapper<P extends JavaPlugin>(P plugin,
                                                PersistentDataContainer container) {
     private static final Map<String, NamespacedKey> KEYS = new HashMap<>();
 
-    public WrappedPDC(P plugin, PersistentDataHolder holder) {
+    public PDCWrapper(P plugin, PersistentDataHolder holder) {
         this(plugin, holder.getPersistentDataContainer());
     }
 

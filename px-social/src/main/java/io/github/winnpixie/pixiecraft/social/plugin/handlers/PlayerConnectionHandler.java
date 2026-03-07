@@ -1,7 +1,7 @@
 package io.github.winnpixie.pixiecraft.social.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
-import io.github.winnpixie.pixiecraft.commons.WrappedPDC;
+import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,7 +15,7 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxSocialPlugin> {
     @EventHandler
     private void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        WrappedPDC<PxSocialPlugin> pdc = new WrappedPDC<>(getPlugin(), player);
+        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
 
         pdc.setString("chat_channel", "global");
 

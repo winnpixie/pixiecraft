@@ -1,11 +1,15 @@
 package io.github.winnpixie.pixiecraft.economy.api;
 
+import java.util.Collection;
+
 public interface IBank {
     String getName();
 
-    IAccountHolder register(IUser user);
+    Collection<IBankAccountHolder> getHolders();
+
+    IBankAccountHolder register(IUser user);
 
     boolean leave(IUser user);
 
-    IAccountHolder find(IUser user);
+    IBankAccountHolder find(IUser user);
 }

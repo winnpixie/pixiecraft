@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.WrappedPDC;
+import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
@@ -22,7 +22,7 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
 
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
-        WrappedPDC<PxSocialPlugin> pdc = new WrappedPDC<>(getPlugin(), player);
+        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
 
         if (args.length > 0) {
             String nickname = TextHelper.format(args[0]);

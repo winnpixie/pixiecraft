@@ -5,5 +5,5 @@ import java.util.UUID;
 public interface IUser {
     UUID getId();
 
-    IAccount getWallet();
+    IWallet getWallet();
 }

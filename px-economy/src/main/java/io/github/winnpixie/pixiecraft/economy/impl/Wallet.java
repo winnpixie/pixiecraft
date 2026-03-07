@@ -1,24 +1,16 @@
 package io.github.winnpixie.pixiecraft.economy.impl;
 
-import io.github.winnpixie.pixiecraft.economy.api.IAccount;
+import io.github.winnpixie.pixiecraft.economy.api.IWallet;
 
-public class Account implements IAccount {
-    private final String name;
-
+public class Wallet implements IWallet {
     private long balance;
 
-    public Account(String name) {
-        this(name, 0L);
+    public Wallet() {
+        this(0L);
     }
 
-    public Account(String name, long initialBalance) {
-        this.name = name;
+    public Wallet(long initialBalance) {
         this.balance = initialBalance;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
     @Override
@@ -27,12 +19,12 @@ public class Account implements IAccount {
     }
 
     @Override
-    public void setBalance(long balance) {
-        this.balance = balance;
+    public void setBalance(long amount) {
+        this.balance = amount;
     }
 
     @Override
-    public boolean deposit(long amount) {
+    public boolean earn(long amount) {
         if (amount < 0L) {
             return false;
         }
@@ -42,7 +34,7 @@ public class Account implements IAccount {
     }
 
     @Override
-    public boolean withdraw(long amount) {
+    public boolean spend(long amount) {
         if (amount < 0L) {
             return false;
         }

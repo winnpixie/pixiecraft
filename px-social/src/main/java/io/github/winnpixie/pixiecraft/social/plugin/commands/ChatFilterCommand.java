@@ -1,7 +1,7 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
 import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
-import io.github.winnpixie.pixiecraft.commons.WrappedPDC;
+import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
 import net.md_5.bungee.api.ChatColor;
@@ -21,7 +21,7 @@ public class ChatFilterCommand extends PlayerCommand<PxSocialPlugin> {
             return false;
         }
 
-        WrappedPDC<PxSocialPlugin> pdc = new WrappedPDC<>(getPlugin(), player);
+        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
 
         return switch (args[0].toLowerCase()) {
             case "uwu" -> {

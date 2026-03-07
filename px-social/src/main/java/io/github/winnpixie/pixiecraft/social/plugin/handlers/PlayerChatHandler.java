@@ -1,7 +1,7 @@
 package io.github.winnpixie.pixiecraft.social.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
-import io.github.winnpixie.pixiecraft.commons.WrappedPDC;
+import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
 import io.github.winnpixie.pixiecraft.social.plugin.utilities.MessageHelper;
@@ -22,14 +22,14 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        WrappedPDC<PxSocialPlugin> pdc = new WrappedPDC<>(getPlugin(), player);
+        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
 
         String channel = pdc.getString("chat_channel");
         if (!channel.equals("global")) {
             Set<Player> recipients = event.getRecipients();
             recipients.removeIf(recipient -> {
-                WrappedPDC<PxSocialPlugin> rpdc = new WrappedPDC<>(getPlugin(), recipient);
-                return !rpdc.getString("chat_channel").equals(channel);
+                PDCWrapper<PxSocialPlugin> recipientPdc = new PDCWrapper<>(getPlugin(), recipient);
+                return !recipientPdc.getString("chat_channel").equals(channel);
             });
         }
 
