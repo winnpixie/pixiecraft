@@ -42,7 +42,7 @@ public class PxEconomyPlugin extends JavaPlugin {
         try {
             database.connect();
 
-            userManager.loadUsers(database);
+            userManager.load(database);
             centralBank.load(database);
         } catch (SQLException e) {
             getLogger().log(Level.WARNING, "Error loading from database", e);
@@ -59,7 +59,7 @@ public class PxEconomyPlugin extends JavaPlugin {
     public void onDisable() {
         // don't judge me, watchers
         // THIS CODE IS TEST ILL WRITE A PROPER SAVE SYSTEM
-        userManager.saveUsers(database);
+        userManager.save(database);
         centralBank.save(database);
 
         try {

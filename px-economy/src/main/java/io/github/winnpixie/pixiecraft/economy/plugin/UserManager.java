@@ -49,7 +49,7 @@ public class UserManager {
         return users;
     }
 
-    void loadUsers(Database<PxEconomyPlugin> database) {
+    void load(Database<PxEconomyPlugin> database) {
         try {
             database.write("CREATE TABLE IF NOT EXISTS wallets (id VARCHAR(36) PRIMARY KEY UNIQUE, balance BIGINT)");
 
@@ -70,7 +70,7 @@ public class UserManager {
         }
     }
 
-    void saveUsers(Database<PxEconomyPlugin> database) {
+    void save(Database<PxEconomyPlugin> database) {
         for (IUser user : users.values()) {
             try {
                 database.read("SELECT id FROM wallets WHERE (id = ?)",

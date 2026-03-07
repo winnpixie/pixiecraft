@@ -14,7 +14,7 @@ public class SQLite<P extends JavaPlugin> extends Database<P> {
         super(plugin, new File(plugin.getDataFolder(), "%s.db".formatted(name)).getAbsolutePath(), username, password);
     }
 
-    public void connect() throws SQLException {
-        connect("sqlite");
+    public boolean connect() throws SQLException {
+        return connect("sqlite");
     }
 }
