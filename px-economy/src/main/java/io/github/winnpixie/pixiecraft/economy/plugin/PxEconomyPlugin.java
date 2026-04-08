@@ -4,6 +4,7 @@ import io.github.winnpixie.pixiecraft.commons.database.SQLite;
 import io.github.winnpixie.pixiecraft.economy.plugin.commands.BalanceCommand;
 import io.github.winnpixie.pixiecraft.economy.plugin.commands.BankCommand;
 import io.github.winnpixie.pixiecraft.economy.plugin.commands.EconomyCommand;
+import io.github.winnpixie.pixiecraft.economy.plugin.commands.PayCommand;
 import io.github.winnpixie.pixiecraft.economy.plugin.handlers.PlayerConnectionHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -60,6 +61,7 @@ public class PxEconomyPlugin extends JavaPlugin {
         new EconomyCommand(this).register();
         new BalanceCommand(this).register();
         new BankCommand(this).register();
+        new PayCommand(this).register();
     }
 
     @Override
