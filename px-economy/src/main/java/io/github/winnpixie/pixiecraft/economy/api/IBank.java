@@ -11,5 +11,9 @@ public interface IBank {
 
     boolean leave(IUser user);
 
+    default boolean leave(IBankAccountHolder holder) {
+        return leave(holder.getOwner());
+    }
+
     IBankAccountHolder find(IUser user);
 }

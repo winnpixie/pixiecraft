@@ -43,5 +43,4 @@ public class Bank implements IBank {
     public IBankAccountHolder find(IUser user) {
         return holders.get(user.getId());
     }
-
 }
