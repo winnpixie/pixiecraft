@@ -17,9 +17,10 @@ public class CentralBank extends Bank {
 
     void load(Database<PxEconomyPlugin> database) {
         try {
-            database.write("CREATE TABLE IF NOT EXISTS central_bank (owner VARCHAR(36), account VARCHAR(32) PRIMARY KEY UNIQUE, balance BIGINT)");
+            database.write("CREATE TABLE IF NOT EXISTS bank"
+                    + " (owner VARCHAR(36), account VARCHAR(255), balance BIGINT, UNIQUE(owner, account))");
 
-            database.read("SELECT owner, account, balance FROM central_bank", result -> {
+            database.read("SELECT owner, account, balance FROM bank", result -> {
                 while (result.next()) {
                     UUID uuid = UUID.fromString(result.getString(1));
                     IUser user = database.getPlugin().getUserManager().get(uuid);
@@ -43,7 +44,7 @@ public class CentralBank extends Bank {
                 }
             });
         } catch (SQLException e) {
-            database.getPlugin().getLogger().log(Level.SEVERE, "Error reading central_bank", e);
+            database.getPlugin().getLogger().log(Level.SEVERE, "Error reading bank", e);
         }
     }
 
@@ -51,30 +52,15 @@ public class CentralBank extends Bank {
         for (IBankAccountHolder holder : getHolders()) {
             for (IBankAccount account : holder.getAccounts()) {
                 try {
-                    database.read("SELECT owner, account FROM central_bank WHERE (owner = ? AND account = ?)",
+                    database.write("INSERT INTO bank(owner, account, balance) VALUES(?, ?, ?)"
+                                    + " ON CONFLICT(owner, account) DO UPDATE SET balance = excluded.balance",
                             statement -> {
                                 statement.setString(1, holder.getOwner().getId().toString());
                                 statement.setString(2, account.getName());
-                            },
-                            result -> {
-                                if (result.next()) {
-                                    database.write("UPDATE central_bank SET balance = ? WHERE (owner = ? AND account = ?)",
-                                            statement -> {
-                                                statement.setLong(1, account.getBalance());
-                                                statement.setString(2, holder.getOwner().getId().toString());
-                                                statement.setString(3, account.getName());
-                                            });
-                                } else {
-                                    database.write("INSERT INTO central_bank(owner, account, balance) VALUES(?, ?, ?)",
-                                            statement -> {
-                                                statement.setString(1, holder.getOwner().getId().toString());
-                                                statement.setString(2, account.getName());
-                                                statement.setLong(3, account.getBalance());
-                                            });
-                                }
+                                statement.setLong(3, account.getBalance());
                             });
                 } catch (SQLException e) {
-                    database.getPlugin().getLogger().log(Level.SEVERE, "Error writing central_bank", e);
+                    database.getPlugin().getLogger().log(Level.SEVERE, "Error writing bank", e);
                 }
             }
         }

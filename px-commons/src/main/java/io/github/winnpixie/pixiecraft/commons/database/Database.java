@@ -52,31 +52,32 @@ public class Database<P extends JavaPlugin> {
 
     public boolean write(String query) throws SQLException {
         write(query, null);
-        return false;
+
+        return true;
     }
 
     public void write(String query, DatabaseConsumer<PreparedStatement> modifier) throws SQLException {
-        try (PreparedStatement prepared = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             if (modifier != null) {
-                modifier.accept(prepared);
+                modifier.accept(statement);
             }
 
-            prepared.executeUpdate();
+            statement.executeUpdate();
         }
     }
 
-    public void read(String query, DatabaseConsumer<ResultSet> onExecute) throws SQLException {
-        read(query, null, onExecute);
+    public void read(String query, DatabaseConsumer<ResultSet> onResult) throws SQLException {
+        read(query, null, onResult);
     }
 
-    public void read(String query, DatabaseConsumer<PreparedStatement> onPrepare, DatabaseConsumer<ResultSet> onExecute) throws SQLException {
-        try (PreparedStatement prepared = connection.prepareStatement(query)) {
-            if (onPrepare != null) {
-                onPrepare.accept(prepared);
+    public void read(String query, DatabaseConsumer<PreparedStatement> modifier, DatabaseConsumer<ResultSet> onResult) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            if (modifier != null) {
+                modifier.accept(statement);
             }
 
-            try (ResultSet result = prepared.executeQuery()) {
-                onExecute.accept(result);
+            try (ResultSet result = statement.executeQuery()) {
+                onResult.accept(result);
             }
         }
     }

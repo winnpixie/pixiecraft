@@ -51,7 +51,8 @@ public class UserManager {
 
     void load(Database<PxEconomyPlugin> database) {
         try {
-            database.write("CREATE TABLE IF NOT EXISTS wallets (id VARCHAR(36) PRIMARY KEY UNIQUE, balance BIGINT)");
+            database.write("CREATE TABLE IF NOT EXISTS wallets"
+                    + " (id VARCHAR(36) PRIMARY KEY, balance BIGINT)");
 
             database.read("SELECT id, balance FROM wallets", result -> {
                 while (result.next()) {
@@ -73,22 +74,11 @@ public class UserManager {
     void save(Database<PxEconomyPlugin> database) {
         for (IUser user : users.values()) {
             try {
-                database.read("SELECT id FROM wallets WHERE (id = ?)",
-                        statement -> statement.setString(1, user.getId().toString()),
-                        result -> {
-                            if (result.next()) {
-                                database.write("UPDATE wallets SET balance = ? WHERE id = ?",
-                                        statement -> {
-                                            statement.setLong(1, user.getWallet().getBalance());
-                                            statement.setString(2, user.getId().toString());
-                                        });
-                            } else {
-                                database.write("INSERT INTO wallets(id, balance) VALUES(?, ?)",
-                                        statement -> {
-                                            statement.setString(1, user.getId().toString());
-                                            statement.setLong(2, user.getWallet().getBalance());
-                                        });
-                            }
+                database.write("INSERT INTO wallets(id, balance) VALUES(?, ?)"
+                                + " ON CONFLICT(id) DO UPDATE SET balance = excluded.balance",
+                        statement -> {
+                            statement.setString(1, user.getId().toString());
+                            statement.setLong(2, user.getWallet().getBalance());
                         });
             } catch (SQLException e) {
                 database.getPlugin().getLogger().log(Level.WARNING, "Error writing wallets", e);

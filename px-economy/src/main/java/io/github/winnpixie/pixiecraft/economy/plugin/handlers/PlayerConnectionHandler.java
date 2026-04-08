@@ -19,6 +19,9 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxEconomyPlugin> {
         IUser user = getPlugin().getUserManager().get(player);
         if (user == null) {
             user = getPlugin().getUserManager().add(player);
+        }
+
+        if (getPlugin().getCentralBank().find(user) == null) {
             getPlugin().getCentralBank().register(user);
         }
     }
