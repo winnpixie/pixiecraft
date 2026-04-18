@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ConfigurationLoader {
-    private final List<WrappedField> wrappers = new CopyOnWriteArrayList<>();
+    private final List<FieldWrapper> wrappers = new CopyOnWriteArrayList<>();
 
     private ConfigurationSection bukkit;
 
@@ -16,31 +16,20 @@ public class ConfigurationLoader {
         this.bukkit = bukkit;
     }
 
-    public void linkClass(Class<?> cls) {
-        wrapFields(cls.getDeclaredFields(), null);
-    }
+    public void link(Object owner) {
+        Object obj = owner;
+        Field[] fields;
 
-    public void linkInstance(Object owner) {
-        wrapFields(owner.getClass().getDeclaredFields(), owner);
-    }
+        if (owner instanceof Class<?> cls) {
+            obj = null;
+            fields = cls.getDeclaredFields();
+        } else {
+            fields = owner.getClass().getDeclaredFields();
+        }
 
-    private void wrapFields(Field[] fields, Object owner) {
         for (Field field : fields) {
-            if (!field.canAccess(owner)) {
-                continue;
-            }
-
-            int modifiers = field.getModifiers();
-            if (Modifier.isFinal(modifiers)) {
-                continue;
-            }
-
-            // FIXME: Ehhhhh
-            boolean isStatic = Modifier.isStatic(modifiers);
-            if (owner == null && !isStatic) {
-                continue;
-            }
-            if (owner != null && isStatic) {
+            if (Modifier.isFinal(field.getModifiers())
+                    || !field.canAccess(obj)) {
                 continue;
             }
 
@@ -49,13 +38,18 @@ public class ConfigurationLoader {
                 continue;
             }
 
-            wrappers.add(new WrappedField(field, owner, linker.value()));
+            try {
+                wrappers.add(new FieldWrapper(field, obj, linker.value()));
+            } catch (IllegalAccessException iae) {
+                iae.printStackTrace();
+            }
         }
     }
 
+
     public void load() {
-        for (WrappedField wrapper : wrappers) {
-            wrapper.setValue(bukkit.get(wrapper.path(), wrapper.getValue()));
+        for (FieldWrapper handler : wrappers) {
+            handler.set(bukkit.get(handler.path(), handler.get()));
         }
     }
 

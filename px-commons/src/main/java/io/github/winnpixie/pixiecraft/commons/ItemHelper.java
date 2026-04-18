@@ -9,17 +9,17 @@ public class ItemHelper {
     private ItemHelper() {
     }
 
-    // Shamelessly stolen and re-implemented from Paper API's javadocs
-    public static boolean editMeta(ItemStack stack, Consumer<? super ItemMeta> consumer) {
-        return editMeta(stack, ItemMeta.class, consumer);
+    // Shamelessly stolen and re-implemented from Paper API's documentation
+    public static boolean editMeta(ItemStack stack, Consumer<? super ItemMeta> mutator) {
+        return editMeta(stack, ItemMeta.class, mutator);
     }
 
-    // Shamelessly stolen and re-implemented from Paper API's javadocs
-    public static <T extends ItemMeta> boolean editMeta(ItemStack stack, Class<T> dataCls, Consumer<? super T> consumer) {
+    // Shamelessly stolen and re-implemented from Paper API's documentation
+    public static <T extends ItemMeta> boolean editMeta(ItemStack stack, Class<T> dataCls, Consumer<? super T> mutator) {
         ItemMeta meta = stack.getItemMeta();
         if (!dataCls.isInstance(meta)) return false;
 
-        consumer.accept(dataCls.cast(meta));
+        mutator.accept(dataCls.cast(meta));
         stack.setItemMeta(meta);
         return true;
     }

@@ -12,26 +12,29 @@ public class ParticleHelper {
     private static BlockData boneBlock;
     private static BlockData endPortal;
     private static BlockData redstoneBlock;
+    private static BlockData honeyBlock;
 
     private ParticleHelper() {
     }
 
-    public static void init(Server server) {
+    public static void createBlockData(Server server) {
         tnt = server.createBlockData(Material.TNT);
         lava = server.createBlockData(Material.LAVA);
         coalBlock = server.createBlockData(Material.COAL_BLOCK);
         boneBlock = server.createBlockData(Material.BONE_BLOCK);
         endPortal = server.createBlockData(Material.END_PORTAL);
         redstoneBlock = server.createBlockData(Material.REDSTONE_BLOCK);
+        honeyBlock = server.createBlockData(Material.HONEY_BLOCK);
     }
 
-    public static BlockData getParticle(Entity entity) {
+    public static BlockData getBlockFor(Entity entity) {
         return switch (entity.getType()) {
             case CREEPER -> tnt;
             case WITHER_SKELETON -> coalBlock;
             case SKELETON, SKELETON_HORSE -> boneBlock;
             case MAGMA_CUBE, STRIDER -> lava;
             case ENDERMAN, ENDERMITE, ENDER_DRAGON -> endPortal;
+            case BEE -> honeyBlock;
             default -> redstoneBlock;
         };
     }

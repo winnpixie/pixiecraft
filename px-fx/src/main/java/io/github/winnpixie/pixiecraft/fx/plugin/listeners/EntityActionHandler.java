@@ -22,13 +22,15 @@ public class EntityActionHandler extends BaseEventHandler<PxEffectsPlugin> {
             return;
         }
 
-        Location location = event.getDamageSource().getDamageType() == DamageType.FALL ? entity.getLocation() :
-                entity.getEyeLocation();
+        if (event.getFinalDamage() <= 0.0) {
+            return;
+        }
 
+        Location location = event.getDamageSource().getDamageType() == DamageType.FALL ?
+                entity.getLocation() : entity.getEyeLocation();
 
-        // TODO: Configurable count and offset
         entity.getWorld().spawnParticle(Particle.BLOCK, location, FxConfig.PARTICLE_COUNT,
                 FxConfig.OFFSET_X, FxConfig.OFFSET_Y, FxConfig.OFFSET_Z,
-                ParticleHelper.getParticle(entity));
+                ParticleHelper.getBlockFor(entity));
     }
 }

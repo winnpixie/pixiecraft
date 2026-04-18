@@ -5,6 +5,7 @@ import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
 import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.builders.ItemBuilder;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
+import io.github.winnpixie.pixiecraft.economy.api.IWallet;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
@@ -41,6 +43,28 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         }
     }
 
+    @EventHandler
+    private void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        IUser user = PxEconomyPlugin.getInstance().getUserManager().get(player);
+        IWallet wallet = user.getWallet();
+        if (wallet.getBalance() == 0L) {
+            return;
+        }
+
+        long drop = MathHelper.randomLong(1L, 101L);
+        drop = Math.min(drop, wallet.getBalance());
+        wallet.spend(drop);
+
+        player.spigot().sendMessage(new ComponentBuilder("Dropped ")
+                .color(ChatColor.DARK_GREEN)
+                .append("%.2f".formatted(drop / 100.0))
+                .color(ChatColor.LIGHT_PURPLE)
+                .append(" Fairy Dust")
+                .color(ChatColor.DARK_PURPLE)
+                .build());
+    }
+
     private void handleBeheading(Player attacker, Player victim) {
         Material heldItem = attacker.getInventory().getItemInMainHand().getType();
         if (!Tag.ITEMS_SWORDS.isTagged(heldItem) && !Tag.ITEMS_AXES.isTagged(heldItem)) {
@@ -55,7 +79,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
     }
 
     private void handleCurrencyDrop(Player attacker) {
-        long drop = MathHelper.ceil(Math.random() * 100.0);
+        long drop = MathHelper.randomLong(1L, 101L);
 
         IUser user = PxEconomyPlugin.getInstance().getUserManager().get(attacker);
         user.getWallet().earn(drop);

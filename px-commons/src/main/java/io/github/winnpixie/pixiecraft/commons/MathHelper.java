@@ -1,7 +1,20 @@
 package io.github.winnpixie.pixiecraft.commons;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class MathHelper {
+    private static final Random RANDOM = ThreadLocalRandom.current();
+
     private MathHelper() {
+    }
+
+    public static int randomInt(int min, int max) {
+        return RANDOM.nextInt(min, max);
+    }
+
+    public static long randomLong(long min, long max) {
+        return RANDOM.nextLong(min, max);
     }
 
     public static boolean isInteger(String value) {
@@ -22,10 +35,15 @@ public class MathHelper {
         }
     }
 
+    public static float randomFloat(float min, float max) {
+        return RANDOM.nextFloat(min, max);
+    }
+
     public static boolean isFloat(String value) {
         try {
-            Float.parseFloat(value);
-            return true;
+            float parsed = Float.parseFloat(value);
+            return !Float.isNaN(parsed)
+                    && !Float.isInfinite(parsed);
         } catch (NumberFormatException nfe) {
             return false;
         }
@@ -41,10 +59,15 @@ public class MathHelper {
         return ival > value ? ival : ival + 1;
     }
 
+    public static double randomDouble(double min, double max) {
+        return RANDOM.nextDouble(min, max);
+    }
+
     public static boolean isDouble(String value) {
         try {
-            Double.parseDouble(value);
-            return true;
+            double parsed = Double.parseDouble(value);
+            return !Double.isNaN(parsed)
+                    && !Double.isInfinite(parsed);
         } catch (NumberFormatException nfe) {
             return false;
         }

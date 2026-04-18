@@ -15,10 +15,10 @@ public class PxEffectsPlugin extends JavaPlugin {
         saveDefaultConfig();
 
         configLoader = new ConfigurationLoader(getConfig());
-        configLoader.linkClass(FxConfig.class);
+        configLoader.link(FxConfig.class);
         configLoader.load();
 
-        ParticleHelper.init(getServer());
+        ParticleHelper.createBlockData(getServer());
 
         new EntityActionHandler(this).register();
         new PlayerActionHandler(this).register();

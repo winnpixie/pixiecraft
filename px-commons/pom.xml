@@ -9,5 +9,6 @@
         <artifactId>pixiecraft</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <artifactId>px-commons</artifactId>
 </project>

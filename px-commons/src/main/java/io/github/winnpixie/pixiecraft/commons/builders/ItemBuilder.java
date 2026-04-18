@@ -65,9 +65,9 @@ public class ItemBuilder {
         return stack;
     }
 
-    public <T extends ItemMeta> ItemStack craft(Class<T> metaCls, Consumer<? super T> metaConsumer) {
+    public <T extends ItemMeta> ItemStack craft(Class<T> metaCls, Consumer<? super T> mutator) {
         ItemStack stack = craft();
-        ItemHelper.editMeta(stack, metaCls, metaConsumer);
+        ItemHelper.editMeta(stack, metaCls, mutator);
 
         return stack;
     }

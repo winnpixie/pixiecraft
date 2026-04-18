@@ -33,7 +33,7 @@
             <dependency>
                 <groupId>org.spigotmc</groupId>
                 <artifactId>spigot-api</artifactId>
-                <version>26.1-R0.1-SNAPSHOT</version>
+                <version>26.1.2-R0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -60,5 +60,7 @@
         <module>px-combat</module>
         <module>px-fx</module>
         <module>px-social</module>
+        <module>px-hud</module>
+        <module>px-core</module>
     </modules>
 </project>
