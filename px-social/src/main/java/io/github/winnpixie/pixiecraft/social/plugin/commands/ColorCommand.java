@@ -41,7 +41,7 @@ public class ColorCommand extends PlayerCommand<PxSocialPlugin> {
 
             player.spigot().sendMessage(new ComponentBuilder("Your chat color has been set: ")
                     .color(ChatColor.DARK_PURPLE)
-                    .append(TextComponent.fromLegacy(TextHelper.convertHexColors(String.format("<#%s>#%1$s", color))))
+                    .append(TextComponent.fromLegacy(TextHelper.convertHexColors("<#%s>#%1$s".formatted(color))))
                     .build());
             return true;
         }

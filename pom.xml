@@ -58,9 +58,10 @@
         <module>px-agriculture</module>
         <module>px-anticheat</module>
         <module>px-combat</module>
-        <module>px-fx</module>
-        <module>px-social</module>
-        <module>px-hud</module>
         <module>px-core</module>
+        <module>px-fx</module>
+        <module>px-hud</module>
+        <module>px-mature</module>
+        <module>px-social</module>
     </modules>
 </project>

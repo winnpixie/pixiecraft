@@ -29,12 +29,16 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         IBankAccountHolder holder = getPlugin().getCentralBank().find(user);
 
         if (args[0].equalsIgnoreCase("accounts")) {
+            player.spigot().sendMessage(new ComponentBuilder("Accounts:")
+                    .color(ChatColor.DARK_GREEN)
+                    .build());
+
             for (IBankAccount account : holder.getAccounts()) {
                 player.spigot().sendMessage(new ComponentBuilder(account.getName())
                         .color(ChatColor.GREEN)
                         .append(": ")
                         .color(ChatColor.DARK_GREEN)
-                        .append(String.format("%.2f", account.getBalance() / 100.00))
+                        .append("%.2f".formatted(account.getBalance() / 100.00))
                         .color(ChatColor.LIGHT_PURPLE)
                         .append(" Fairy Dust")
                         .color(ChatColor.DARK_PURPLE)
@@ -100,6 +104,27 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
         }
 
         holder.close(account);
+
+        player.spigot().sendMessage(new ComponentBuilder("Closed account: ")
+                .color(ChatColor.DARK_GREEN)
+                .append(account.getName())
+                .color(ChatColor.GREEN)
+                .build());
+
+        long balance = account.getBalance();
+        if (balance > 0L) {
+            holder.getOwner().getWallet().earn(balance);
+
+            player.spigot().sendMessage(new ComponentBuilder("Withdrew ")
+                    .color(ChatColor.DARK_GREEN)
+                    .append("%.2f".formatted(balance / 100.00))
+                    .color(ChatColor.LIGHT_PURPLE)
+                    .append(" Fairy Dust")
+                    .color(ChatColor.DARK_PURPLE)
+                    .append(" due to account closure")
+                    .color(ChatColor.DARK_GREEN)
+                    .build());
+        }
         return true;
     }
 
@@ -113,7 +138,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
                 .color(ChatColor.GREEN)
                 .append(" currently has ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", account.getBalance() / 100.00))
+                .append("%.2f".formatted(account.getBalance() / 100.00))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)
@@ -134,6 +159,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
 
         double parsed = Double.parseDouble(requestedAmount);
         long amount = (long) (parsed * 100.00);
+
         if (!user.getWallet().spend(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;
@@ -143,7 +169,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
 
         player.spigot().sendMessage(new ComponentBuilder("Deposited ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", parsed))
+                .append("%.2f".formatted(parsed))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)
@@ -177,7 +203,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
 
         player.spigot().sendMessage(new ComponentBuilder("Withdrew ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", parsed))
+                .append("%.2f".formatted(parsed))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)

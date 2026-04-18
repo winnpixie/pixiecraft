@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class ChatFilterCommand extends PlayerCommand<PxSocialPlugin> {
     public ChatFilterCommand(PxSocialPlugin plugin) {
-        super("chatfilter", plugin);
+        super("chat-filter", plugin);
     }
 
     @Override

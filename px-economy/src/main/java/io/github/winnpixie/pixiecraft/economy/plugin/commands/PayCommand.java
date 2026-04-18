@@ -40,8 +40,9 @@ public class PayCommand extends PlayerCommand<PxEconomyPlugin> {
 
         double parsed = Double.parseDouble(requestedAmount);
         long amount = (long) (parsed * 100.00);
+
         if (!payerWallet.spend(amount)) {
-            player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_FUNDS);
+            player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;
         }
 
@@ -52,7 +53,7 @@ public class PayCommand extends PlayerCommand<PxEconomyPlugin> {
         // Tell the payee they've received currency
         target.spigot().sendMessage(new ComponentBuilder("Received ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", parsed))
+                .append("%.2f".formatted(parsed))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)
@@ -65,7 +66,7 @@ public class PayCommand extends PlayerCommand<PxEconomyPlugin> {
         // Tell the payer they've transferred their balance
         player.spigot().sendMessage(new ComponentBuilder("Sent ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", parsed))
+                .append("%.2f".formatted(parsed))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)

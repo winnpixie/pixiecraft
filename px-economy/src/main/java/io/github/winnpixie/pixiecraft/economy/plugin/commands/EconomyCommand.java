@@ -68,7 +68,7 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
                 .color(ChatColor.GREEN)
                 .append(" currently has ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", wallet.getBalance() / 100.00))
+                .append("%.2f".formatted(wallet.getBalance() / 100.00))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)
@@ -89,7 +89,7 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
 
         sender.spigot().sendMessage(new ComponentBuilder("Granted ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", parsed))
+                .append("%.2f".formatted(parsed))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)
@@ -116,7 +116,7 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
 
         sender.spigot().sendMessage(new ComponentBuilder("Taxed ")
                 .color(ChatColor.DARK_GREEN)
-                .append(String.format("%.2f", parsed))
+                .append("%.2f".formatted(parsed))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)

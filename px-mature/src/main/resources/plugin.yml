@@ -1,0 +1,13 @@
+name: 'pxMature'
+version: '0.1'
+main: 'io.github.winnpixie.pixiecraft.mature.plugin.PxMaturePlugin'
+api-version: 1.21
+depend:
+  - 'pxCommons'
+  - 'pxEconomy'
+
+commands:
+  coin-flip:
+    aliases: [ 'cf' ]
+    description: 'Gamble on a coin flip.'
+    usage: '/coin-flip <heads|tails> [wager]'

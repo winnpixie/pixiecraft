@@ -9,9 +9,10 @@ commands:
   channel:
     description: 'Sets your chat messaging channel.'
     usage: '/channel [channel]'
-  chatfilter:
+  chat-filter:
+    aliases: [ 'filter' ]
     description: 'Toggle chat message filters.'
-    usage: '/chatfilter <uwu|leet>'
+    usage: '/chat-filter <uwu|leet>'
   color:
     description: 'Set your chat message color.'
     usage: '/color [RRGGBB]'

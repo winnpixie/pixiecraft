@@ -54,6 +54,15 @@ public class CentralBank extends Bank {
     }
 
     public void save(IBankAccountHolder holder) {
+        // TODO: Optimize this to only have to execute a DELETE on closed accounts
+        try {
+            database.write("DELETE FROM bank WHERE (owner = ?)",
+                    statement ->
+                            statement.setString(1, holder.getOwner().getId().toString()));
+        } catch (SQLException e) {
+            database.getPlugin().getLogger().log(Level.SEVERE, "Error cleaning bank", e);
+        }
+
         for (IBankAccount account : holder.getAccounts()) {
             try {
                 database.write("INSERT INTO bank(owner, account, balance) VALUES(?, ?, ?)"

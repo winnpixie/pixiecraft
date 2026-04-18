@@ -42,11 +42,11 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         }
 
         if (pdc.has("chat_color")) {
-            message = String.format("%s%s", TextHelper.convertHexColors(String.format("<#%s>", pdc.getString("chat_color"))), message);
+            message = "%s%s".formatted(TextHelper.convertHexColors("<#%s>".formatted(pdc.getString("chat_color"))), message);
         }
 
         event.setMessage(message);
         char channelColor = channel.equals("global") ? '8' : '7';
-        event.setFormat(String.format("\u00A7%c[#%s] \u00A7r<%%1$s\u00A7r> %%2$s", channelColor, channel));
+        event.setFormat("\u00A7%c[#%s] \u00A7r<%%1$s\u00A7r> %%2$s".formatted(channelColor, channel));
     }
 }

@@ -31,7 +31,7 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
 
             player.spigot().sendMessage(new ComponentBuilder("Your nickname is now: ")
                     .color(ChatColor.DARK_PURPLE)
-                    .append(TextComponent.fromLegacy(String.format("\u00A7r%s", nickname)))
+                    .append(TextComponent.fromLegacy("\u00A7r%s".formatted(nickname)))
                     .build());
             return true;
         }
