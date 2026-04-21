@@ -1,13 +1,14 @@
 package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 
 import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
-import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IBankAccount;
 import io.github.winnpixie.pixiecraft.economy.api.IBankAccountHolder;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
+import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
 import io.github.winnpixie.pixiecraft.economy.plugin.EconomyWarnings;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
+import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
@@ -21,7 +22,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         if (args.length < 1) {
-            player.spigot().sendMessage(CommonWarnings.NOT_ENOUGH_ARGS);
+            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
             return false;
         }
 
@@ -38,16 +39,15 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
                         .color(ChatColor.GREEN)
                         .append(": ")
                         .color(ChatColor.DARK_GREEN)
-                        .append("%.2f".formatted(account.getBalance() / 100.00))
+                        .append(UnitConverter.toString(account.getBalance()))
                         .color(ChatColor.LIGHT_PURPLE)
-                        .append(" Fairy Dust")
+                        .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                         .color(ChatColor.DARK_PURPLE)
                         .build());
             }
-
             return true;
         } else if (args.length < 2) {
-            player.spigot().sendMessage(CommonWarnings.NOT_ENOUGH_ARGS);
+            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
             return false;
         }
 
@@ -117,9 +117,9 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
 
             player.spigot().sendMessage(new ComponentBuilder("Withdrew ")
                     .color(ChatColor.DARK_GREEN)
-                    .append("%.2f".formatted(balance / 100.00))
+                    .append(UnitConverter.toString(balance))
                     .color(ChatColor.LIGHT_PURPLE)
-                    .append(" Fairy Dust")
+                    .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                     .color(ChatColor.DARK_PURPLE)
                     .append(" due to account closure")
                     .color(ChatColor.DARK_GREEN)
@@ -138,9 +138,9 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
                 .color(ChatColor.GREEN)
                 .append(" currently has ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(account.getBalance() / 100.00))
+                .append(UnitConverter.toString(account.getBalance()))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .build());
         return true;
@@ -152,14 +152,12 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
             return false;
         }
 
-        if (!MathHelper.isDouble(requestedAmount)) {
-            player.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+        if (!UnitConverter.isUnit(requestedAmount)) {
+            player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
-        double parsed = Double.parseDouble(requestedAmount);
-        long amount = (long) (parsed * 100.00);
-
+        long amount = UnitConverter.fromString(requestedAmount);
         if (!user.getWallet().spend(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;
@@ -169,9 +167,9 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
 
         player.spigot().sendMessage(new ComponentBuilder("Deposited ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(parsed))
+                .append(UnitConverter.toString(amount))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .append(" into ")
                 .color(ChatColor.DARK_GREEN)
@@ -187,13 +185,12 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
             return false;
         }
 
-        if (!MathHelper.isDouble(requestedAmount)) {
-            player.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+        if (!UnitConverter.isUnit(requestedAmount)) {
+            player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
-        double parsed = Double.parseDouble(requestedAmount);
-        long amount = (long) (parsed * 100.00);
+        long amount = UnitConverter.fromString(requestedAmount);
         if (!account.withdraw(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_FUNDS);
             return false;
@@ -203,9 +200,9 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
 
         player.spigot().sendMessage(new ComponentBuilder("Withdrew ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(parsed))
+                .append(UnitConverter.toString(amount))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .append(" from ")
                 .color(ChatColor.DARK_GREEN)

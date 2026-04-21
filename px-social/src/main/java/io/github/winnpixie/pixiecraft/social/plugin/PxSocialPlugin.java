@@ -1,9 +1,6 @@
 package io.github.winnpixie.pixiecraft.social.plugin;
 
-import io.github.winnpixie.pixiecraft.social.plugin.commands.ChannelCommand;
-import io.github.winnpixie.pixiecraft.social.plugin.commands.ChatFilterCommand;
-import io.github.winnpixie.pixiecraft.social.plugin.commands.ColorCommand;
-import io.github.winnpixie.pixiecraft.social.plugin.commands.NicknameCommand;
+import io.github.winnpixie.pixiecraft.social.plugin.commands.*;
 import io.github.winnpixie.pixiecraft.social.plugin.handlers.PlayerChatHandler;
 import io.github.winnpixie.pixiecraft.social.plugin.handlers.PlayerConnectionHandler;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,7 +13,8 @@ public class PxSocialPlugin extends JavaPlugin {
 
         new ChannelCommand(this).register();
         new ChatFilterCommand(this).register();
-        new ColorCommand(this).register();
+        new ChatColorCommand(this).register();
         new NicknameCommand(this).register();
+        new WhisperCommand(this).register();
     }
 }

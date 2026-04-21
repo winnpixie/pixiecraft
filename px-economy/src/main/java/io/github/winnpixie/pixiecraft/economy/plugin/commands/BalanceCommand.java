@@ -3,7 +3,9 @@ package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
+import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
+import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
@@ -24,9 +26,9 @@ public class BalanceCommand extends PlayerCommand<PxEconomyPlugin> {
 
         player.spigot().sendMessage(new ComponentBuilder("You are carrying ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(user.getWallet().getBalance() / 100.00))
+                .append(UnitConverter.toString(user.getWallet().getBalance()))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .build());
         return true;

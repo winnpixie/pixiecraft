@@ -9,11 +9,11 @@ public interface IBankAccountHolder {
 
     Collection<IBankAccount> getAccounts();
 
+    IBankAccount open(String name, long initialBalance);
+
     default IBankAccount open(String name) {
         return open(name, 0L);
     }
-
-    IBankAccount open(String name, long initialBalance);
 
     boolean close(IBankAccount account);
 

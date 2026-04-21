@@ -1,0 +1,14 @@
+name: 'pxCore'
+version: '0.1'
+main: 'io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin'
+api-version: 1.21
+depend:
+  - 'pxCommons'
+
+commands:
+  ping:
+    description: 'View the latency of yourself or [player]'
+    usage: '/ping [player]'
+  seen:
+    description: 'View when [target] last joined'
+    usage: '/seen <player>'

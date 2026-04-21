@@ -7,7 +7,6 @@ import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -31,7 +30,7 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
 
             player.spigot().sendMessage(new ComponentBuilder("Your nickname is now: ")
                     .color(ChatColor.DARK_PURPLE)
-                    .append(TextComponent.fromLegacy("\u00A7r%s".formatted(nickname)))
+                    .appendLegacy("\u00A7r%s".formatted(nickname))
                     .build());
             return true;
         }

@@ -6,6 +6,7 @@ import io.github.winnpixie.pixiecraft.economy.impl.User;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,6 +19,10 @@ public class UserManager {
 
     public UserManager(Database<PxEconomyPlugin> database) {
         this.database = database;
+    }
+
+    public Collection<IUser> getUsers() {
+        return users.values();
     }
 
     public IUser add(Player player) {
@@ -51,12 +56,17 @@ public class UserManager {
         return users.get(id);
     }
 
-    public Map<UUID, IUser> getUsers() {
-        return users;
+    public IUser load(Player player) {
+        return load(player.getUniqueId());
     }
 
     public IUser load(UUID id) {
-        IUser user = add(id);
+        IUser user = get(id);
+        if (user == null) {
+            user = add(id);
+        }
+
+        final IUser effectiveUser = user;
 
         try {
             database.write("CREATE TABLE IF NOT EXISTS wallets"
@@ -72,18 +82,29 @@ public class UserManager {
                             }
 
                             long balance = result.getLong(2);
-                            user.getWallet().setBalance(balance);
+                            effectiveUser.getWallet().setBalance(balance);
                         }
                     });
         } catch (SQLException e) {
             database.getPlugin().getLogger().log(Level.WARNING, "Error reading wallet", e);
         }
 
-        return user;
+        return effectiveUser;
     }
 
     public void flush() {
         for (IUser user : users.values()) {
+            save(user);
+        }
+    }
+
+    public void save(Player player) {
+        save(player.getUniqueId());
+    }
+
+    public void save(UUID id) {
+        IUser user = get(id);
+        if (user != null) {
             save(user);
         }
     }

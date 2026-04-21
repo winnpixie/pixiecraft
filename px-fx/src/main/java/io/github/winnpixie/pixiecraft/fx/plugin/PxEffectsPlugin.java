@@ -14,7 +14,7 @@ public class PxEffectsPlugin extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
 
-        configLoader = new ConfigurationLoader(getConfig());
+        this.configLoader = new ConfigurationLoader(getConfig());
         configLoader.link(FxConfig.class);
         configLoader.load();
 

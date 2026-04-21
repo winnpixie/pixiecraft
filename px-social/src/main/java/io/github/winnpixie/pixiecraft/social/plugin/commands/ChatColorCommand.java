@@ -14,15 +14,15 @@ import org.bukkit.entity.Player;
 
 import java.util.regex.Pattern;
 
-public class ColorCommand extends PlayerCommand<PxSocialPlugin> {
+public class ChatColorCommand extends PlayerCommand<PxSocialPlugin> {
     private final BaseComponent colorClearedMessage = new ComponentBuilder("Chat color has been cleared.")
             .color(ChatColor.DARK_PURPLE)
             .build();
 
     private final Pattern nonHex = Pattern.compile("[^a-f0-9]", Pattern.CASE_INSENSITIVE);
 
-    public ColorCommand(PxSocialPlugin plugin) {
-        super("color", plugin);
+    public ChatColorCommand(PxSocialPlugin plugin) {
+        super("chat-color", plugin);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ColorCommand extends PlayerCommand<PxSocialPlugin> {
             String color = args[0].toLowerCase();
 
             if (color.length() != 6 || nonHex.matcher(color).find()) {
-                player.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+                player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
                 return false;
             }
 

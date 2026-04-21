@@ -7,16 +7,21 @@ depend:
 
 commands:
   channel:
-    description: 'Sets your chat messaging channel.'
+    description: 'Set or clear your chat messaging channel.'
     usage: '/channel [channel]'
   chat-filter:
     aliases: [ 'filter' ]
     description: 'Toggle chat message filters.'
     usage: '/chat-filter <uwu|leet>'
-  color:
+  chat-color:
+    aliases: [ 'cc' ]
     description: 'Set your chat message color.'
-    usage: '/color [RRGGBB]'
+    usage: '/chat-color [RRGGBB]'
   nickname:
     aliases: [ 'nick' ]
     description: 'Set your chat nickname.'
     usage: '/nickname [name]'
+  whisper:
+    aliases: [ 'message', 'msg', 'pm', 'tell', 'w' ]
+    description: 'Privately send <message> to <receiver>.'
+    usage: '/whisper <receiver> <message>'

@@ -32,7 +32,7 @@ public class ChannelCommand extends PlayerCommand<PxSocialPlugin> {
         if (args.length > 0) {
             String channel = args[0].toLowerCase();
             if (illegalChannelChars.matcher(channel).matches()) {
-                player.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+                player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
                 return false;
             }
 

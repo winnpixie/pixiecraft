@@ -6,7 +6,7 @@ import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.builders.ItemBuilder;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
-import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
+import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Material;
@@ -46,7 +46,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
     @EventHandler
     private void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        IUser user = PxEconomyPlugin.getInstance().getUserManager().get(player);
+        IUser user = getPlugin().getEconomy().getUserManager().get(player);
         IWallet wallet = user.getWallet();
         if (wallet.getBalance() == 0L) {
             return;
@@ -58,7 +58,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
 
         player.spigot().sendMessage(new ComponentBuilder("Dropped ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(drop / 100.0))
+                .append(UnitConverter.toString(drop))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)
@@ -81,12 +81,12 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
     private void handleCurrencyDrop(Player attacker) {
         long drop = MathHelper.randomLong(1L, 101L);
 
-        IUser user = PxEconomyPlugin.getInstance().getUserManager().get(attacker);
+        IUser user = getPlugin().getEconomy().getUserManager().get(attacker);
         user.getWallet().earn(drop);
 
         attacker.spigot().sendMessage(new ComponentBuilder("Picked up ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(drop / 100.0))
+                .append(UnitConverter.toString(drop))
                 .color(ChatColor.LIGHT_PURPLE)
                 .append(" Fairy Dust")
                 .color(ChatColor.DARK_PURPLE)

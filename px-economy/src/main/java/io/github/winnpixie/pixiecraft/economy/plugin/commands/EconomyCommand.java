@@ -1,12 +1,13 @@
 package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 
 import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
-import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.commands.BaseCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
+import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
 import io.github.winnpixie.pixiecraft.economy.plugin.EconomyWarnings;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
+import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
@@ -26,89 +27,90 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
         }
 
         if (args.length < 2) {
+            sender.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
             return false;
         }
 
-        Player target = getPlugin().getServer().getPlayerExact(args[1]);
-        if (target == null) {
+        Player player = getPlugin().getServer().getPlayerExact(args[1]);
+        if (player == null) {
             sender.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
             return false;
         }
 
-        IUser user = getPlugin().getUserManager().get(target);
+        IUser user = getPlugin().getUserManager().get(player);
         IWallet wallet = user.getWallet();
 
         return switch (args[0].toLowerCase()) {
-            case "balance" -> showBalance(sender, target, wallet);
+            case "balance" -> showBalance(sender, player, wallet);
             case "grant" -> {
                 if (args.length < 3) {
                     yield false;
                 }
 
-                yield grant(sender, target, wallet, args[2]);
+                yield grant(sender, player, wallet, args[2]);
             }
             case "tax" -> {
                 if (args.length < 3) {
                     yield false;
                 }
 
-                yield tax(sender, target, wallet, args[2]);
+                yield tax(sender, player, wallet, args[2]);
             }
             default -> false;
         };
     }
 
-    private boolean showBalance(CommandSender sender, Player target, IWallet wallet) {
+    private boolean showBalance(CommandSender sender, Player player, IWallet wallet) {
         if (wallet == null) {
             sender.spigot().sendMessage(EconomyWarnings.INVALID_ACCOUNT);
             return false;
         }
 
-        sender.spigot().sendMessage(new ComponentBuilder(target.getName())
+        sender.spigot().sendMessage(new ComponentBuilder(player.getName())
                 .color(ChatColor.GREEN)
                 .append(" currently has ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(wallet.getBalance() / 100.00))
+                .append(UnitConverter.toString(wallet.getBalance()))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .build());
         return true;
     }
 
-    private boolean grant(CommandSender sender, Player target, IWallet wallet, String requestedAmount) {
-        if (!MathHelper.isDouble(requestedAmount)) {
-            sender.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+    private boolean grant(CommandSender sender, Player player, IWallet wallet, String requestedAmount) {
+        if (!UnitConverter.isUnit(requestedAmount)) {
+            sender.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
-        double parsed = Double.parseDouble(requestedAmount);
-        long amount = (long) (parsed * 100.00);
-
-        wallet.earn(amount);
+        long amount = UnitConverter.fromString(requestedAmount);
+        if (!wallet.earn(amount)) {
+            sender.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_FUNDS);
+            return false;
+        }
 
         sender.spigot().sendMessage(new ComponentBuilder("Granted ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(parsed))
+                .append(UnitConverter.toString(amount))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .append(" to ")
                 .color(ChatColor.DARK_GREEN)
-                .append(target.getName())
+                .append(player.getName())
                 .color(ChatColor.GREEN)
                 .build());
         return true;
     }
 
-    private boolean tax(CommandSender sender, Player target, IWallet wallet, String requestedAmount) {
-        if (!MathHelper.isDouble(requestedAmount)) {
-            sender.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+    private boolean tax(CommandSender sender, Player player, IWallet wallet, String requestedAmount) {
+        if (!UnitConverter.isUnit(requestedAmount)) {
+            sender.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
-        double parsed = Double.parseDouble(requestedAmount);
-        long amount = (long) (parsed * 100.00);
+        long amount = UnitConverter.fromString(requestedAmount);
         if (!wallet.spend(amount)) {
             sender.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_FUNDS);
             return false;
@@ -116,13 +118,13 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
 
         sender.spigot().sendMessage(new ComponentBuilder("Taxed ")
                 .color(ChatColor.DARK_GREEN)
-                .append("%.2f".formatted(parsed))
+                .append(UnitConverter.toString(amount))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .append(" from ")
                 .color(ChatColor.DARK_GREEN)
-                .append(target.getName())
+                .append(player.getName())
                 .color(ChatColor.GREEN)
                 .build());
         return true;

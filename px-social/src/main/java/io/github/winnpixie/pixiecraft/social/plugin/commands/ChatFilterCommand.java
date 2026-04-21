@@ -17,7 +17,7 @@ public class ChatFilterCommand extends PlayerCommand<PxSocialPlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         if (args.length < 1) {
-            player.spigot().sendMessage(CommonWarnings.NOT_ENOUGH_ARGS);
+            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
             return false;
         }
 

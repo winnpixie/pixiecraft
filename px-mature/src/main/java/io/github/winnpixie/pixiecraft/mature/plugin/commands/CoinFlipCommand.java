@@ -6,7 +6,7 @@ import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
 import io.github.winnpixie.pixiecraft.economy.plugin.EconomyWarnings;
-import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
+import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import io.github.winnpixie.pixiecraft.mature.plugin.PxMaturePlugin;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -21,28 +21,27 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.spigot().sendMessage(CommonWarnings.NOT_ENOUGH_ARGS);
+            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
             return false;
         }
 
         String choice = args[0];
         if (!choice.equalsIgnoreCase("heads")
                 && !choice.equalsIgnoreCase("tails")) {
-            player.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+            player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
         String wager = args[1];
-        if (!MathHelper.isDouble(wager)) {
-            player.spigot().sendMessage(CommonWarnings.INVALID_ARG_TYPE);
+        if (!UnitConverter.isUnit(wager)) {
+            player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
-        IUser user = PxEconomyPlugin.getInstance().getUserManager().get(player);
+        IUser user = getPlugin().getEconomy().getUserManager().get(player);
         IWallet wallet = user.getWallet();
 
-        double parsed = Double.parseDouble(wager);
-        long amount = (long) (parsed * 100.00);
+        long amount = UnitConverter.fromString(wager);
         if (!wallet.spend(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;
@@ -52,15 +51,15 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
                 "Heads" : "Tails";
 
         player.spigot().sendMessage(new ComponentBuilder("The coin landed on... ")
-                .color(ChatColor.GRAY)
+                .color(ChatColor.DARK_PURPLE)
                 .append(flip)
-                .color(ChatColor.WHITE)
+                .color(ChatColor.LIGHT_PURPLE)
                 .build());
 
         if (choice.equalsIgnoreCase(flip)) {
             player.spigot().sendMessage(new ComponentBuilder("You won ")
                     .color(ChatColor.GREEN)
-                    .append("%.2f".formatted(parsed))
+                    .append(UnitConverter.toString(amount))
                     .color(ChatColor.LIGHT_PURPLE)
                     .append(" Fairy Dust")
                     .color(ChatColor.DARK_PURPLE)
@@ -69,13 +68,12 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
         } else {
             player.spigot().sendMessage(new ComponentBuilder("You lost ")
                     .color(ChatColor.RED)
-                    .append("%.2f".formatted(parsed))
+                    .append(UnitConverter.toString(amount))
                     .color(ChatColor.LIGHT_PURPLE)
                     .append(" Fairy Dust")
                     .color(ChatColor.DARK_PURPLE)
                     .build());
         }
-
         return true;
     }
 }
