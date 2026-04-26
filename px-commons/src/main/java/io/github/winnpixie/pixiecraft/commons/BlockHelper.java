@@ -1,6 +1,8 @@
 package io.github.winnpixie.pixiecraft.commons;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 
 import java.util.function.Consumer;
@@ -28,5 +30,23 @@ public class BlockHelper {
         consumer.accept(dataCls.cast(meta));
         block.setBlockData(meta, applyPhysics);
         return true;
+    }
+
+    public static Block[] getTower(Block origin) {
+        Material type = origin.getType();
+        Block bottom = origin;
+        Block top = origin;
+
+        Block block = origin;
+        while ((block = block.getRelative(BlockFace.DOWN)).getType() == type) {
+            bottom = block;
+        }
+
+        block = origin;
+        while ((block = block.getRelative(BlockFace.UP)).getType() == type) {
+            top = block;
+        }
+
+        return new Block[]{bottom, top};
     }
 }

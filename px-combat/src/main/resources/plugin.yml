@@ -1,7 +1,7 @@
 name: 'pxCombat'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.combat.plugin.PxCombatPlugin'
-api-version: 1.21
+api-version: 26.1
 depend:
   - 'pxCommons'
   - 'pxEconomy'

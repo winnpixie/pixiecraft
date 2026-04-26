@@ -1,7 +1,7 @@
 name: 'pxSocial'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin'
-api-version: 1.21
+api-version: 26.1
 depend:
   - 'pxCommons'
 
@@ -10,11 +10,11 @@ commands:
     description: 'Set or clear your chat messaging channel.'
     usage: '/channel [channel]'
   chat-filter:
-    aliases: [ 'filter' ]
+    aliases: [ 'chatfilter', 'filter' ]
     description: 'Toggle chat message filters.'
     usage: '/chat-filter <uwu|leet>'
   chat-color:
-    aliases: [ 'cc' ]
+    aliases: [ 'chatcolor', 'color', 'cc' ]
     description: 'Set your chat message color.'
     usage: '/chat-color [RRGGBB]'
   nickname:

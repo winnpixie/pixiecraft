@@ -45,31 +45,32 @@ public class TextHelper {
     private TextHelper() {
     }
 
-    public static String format(String text) {
-        return convertCharCodes(convertTags(convertHexColors(text)));
+    public static String formatted(String text) {
+        return fromStyleCodes(fromStyleTags(fromHexCodes(text)));
     }
 
-    public static String convertCharCodes(String text) {
+    public static String fromStyleCodes(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
-    public static String convertTags(String text) {
+    public static String fromStyleTags(String text) {
         return TAG_PATTERN.matcher(text).replaceAll(match -> {
-            char tag = TAGS_TO_CODES.getOrDefault(match.group(1).toLowerCase(), (char) 0);
-            return tag == 0 ? "\u00A7" + tag : match.group();
+            char code = TAGS_TO_CODES.getOrDefault(match.group(1).toLowerCase(), '\0');
+            return code == '\0' ? "\u00A7" + code : match.group();
         });
     }
 
-    public static String convertHexColors(String text) {
+    public static String fromHexCodes(String text) {
         Function<MatchResult, String> transformer = match -> {
             String hex = match.group(1);
 
-            StringBuilder builder = new StringBuilder("\u00A7x");
-            for (char c : hex.toCharArray()) {
-                builder.append('\u00A7').append(Character.toLowerCase(c));
+            char[] formatted = new char[14];
+            for (int i = 0; i < hex.length(); i++) {
+                formatted[(i * 2)] = '\u00A7';
+                formatted[(i * 2) + 1] = Character.toLowerCase(hex.charAt(i));
             }
 
-            return builder.toString();
+            return new String(formatted);
         };
 
         text = LEGACY_HEX_PATTERN.matcher(text).replaceAll(transformer);

@@ -24,7 +24,7 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
         PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
 
         if (args.length > 0) {
-            String nickname = TextHelper.format(args[0]);
+            String nickname = TextHelper.formatted(args[0]);
             player.setDisplayName(nickname);
             pdc.setString("nickname", nickname);
 

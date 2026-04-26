@@ -1,11 +1,14 @@
 name: 'pxCore'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin'
-api-version: 1.21
+api-version: 26.1
 depend:
   - 'pxCommons'
 
 commands:
+  hat:
+    description: 'Equip any item in your main hand as a helmet'
+    usage: '/hat'
   ping:
     description: 'View the latency of yourself or [player]'
     usage: '/ping [player]'

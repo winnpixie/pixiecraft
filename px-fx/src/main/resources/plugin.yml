@@ -1,6 +1,6 @@
 name: 'pxFX'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.fx.plugin.PxEffectsPlugin'
-api-version: 1.21
+api-version: 26.1
 depend:
   - 'pxCommons'

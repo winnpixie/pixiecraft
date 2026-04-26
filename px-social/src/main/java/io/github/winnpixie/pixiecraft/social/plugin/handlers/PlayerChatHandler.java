@@ -42,7 +42,7 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         }
 
         if (pdc.has("chat_color")) {
-            message = "%s%s".formatted(TextHelper.convertHexColors("<#%s>".formatted(pdc.getString("chat_color"))), message);
+            message = "%s%s".formatted(TextHelper.fromHexCodes("<#%s>".formatted(pdc.getString("chat_color"))), message);
         }
 
         event.setMessage(message);
