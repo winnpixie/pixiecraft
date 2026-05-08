@@ -17,7 +17,9 @@ public class ItemHelper {
     // Shamelessly stolen and re-implemented from Paper API's documentation
     public static <T extends ItemMeta> boolean editMeta(ItemStack stack, Class<T> dataCls, Consumer<? super T> mutator) {
         ItemMeta meta = stack.getItemMeta();
-        if (!dataCls.isInstance(meta)) return false;
+        if (!dataCls.isInstance(meta)) {
+            return false;
+        }
 
         mutator.accept(dataCls.cast(meta));
         stack.setItemMeta(meta);

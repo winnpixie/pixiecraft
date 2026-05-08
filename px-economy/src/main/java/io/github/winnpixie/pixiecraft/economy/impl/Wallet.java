@@ -29,6 +29,10 @@ public class Wallet implements IWallet {
             return false;
         }
 
+        if (balance + amount > Integer.MAX_VALUE) {
+            return false;
+        }
+
         this.balance += amount;
         return true;
     }

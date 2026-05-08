@@ -45,6 +45,10 @@ public class BankAccount implements IBankAccount {
             return false;
         }
 
+        if (balance + amount > Integer.MAX_VALUE) {
+            return false;
+        }
+
         this.balance += amount;
         return true;
     }

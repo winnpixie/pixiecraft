@@ -6,15 +6,30 @@ public class FxConfig {
     private FxConfig() {
     }
 
-    @Linked("particle-count")
+    @Linked("standard.particle-count")
     public static int PARTICLE_COUNT;
 
-    @Linked("x-offset")
+    @Linked("standard.x-offset")
     public static double OFFSET_X;
 
-    @Linked("y-offset")
+    @Linked("standard.y-offset")
     public static double OFFSET_Y;
 
-    @Linked("z-offset")
+    @Linked("standard.z-offset")
     public static double OFFSET_Z;
+
+    @Linked("farts.chance")
+    public static double FART_CHANCE;
+
+    @Linked("farts.particle-count")
+    public static int FART_PARTICLE_COUNT;
+
+    @Linked("farts.x-offset")
+    public static double FART_OFFSET_X;
+
+    @Linked("farts.y-offset")
+    public static double FART_OFFSET_Y;
+
+    @Linked("farts.z-offset")
+    public static double FART_OFFSET_Z;
 }

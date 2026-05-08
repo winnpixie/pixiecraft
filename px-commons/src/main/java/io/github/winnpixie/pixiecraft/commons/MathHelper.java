@@ -13,10 +13,6 @@ public class MathHelper {
         return RANDOM.nextInt(min, max);
     }
 
-    public static long randomLong(long min, long max) {
-        return RANDOM.nextLong(min, max);
-    }
-
     public static boolean isInteger(String value) {
         try {
             Integer.parseInt(value);
@@ -24,6 +20,10 @@ public class MathHelper {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    public static long randomLong(long min, long max) {
+        return RANDOM.nextLong(min, max);
     }
 
     public static boolean isLong(String value) {
@@ -49,16 +49,6 @@ public class MathHelper {
         }
     }
 
-    public static int floor(float value) {
-        int ival = (int) value;
-        return ival < value ? ival : ival - 1;
-    }
-
-    public static int ceil(float value) {
-        int ival = (int) value;
-        return ival > value ? ival : ival + 1;
-    }
-
     public static double randomDouble(double min, double max) {
         return RANDOM.nextDouble(min, max);
     }
@@ -71,15 +61,5 @@ public class MathHelper {
         } catch (NumberFormatException nfe) {
             return false;
         }
-    }
-
-    public static long floor(double value) {
-        long lval = (long) value;
-        return lval < value ? lval : lval - 1;
-    }
-
-    public static long ceil(double value) {
-        long lval = (long) value;
-        return lval > value ? lval : lval + 1;
     }
 }

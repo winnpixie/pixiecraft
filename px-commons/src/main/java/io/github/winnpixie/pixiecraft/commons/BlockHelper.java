@@ -25,7 +25,9 @@ public class BlockHelper {
 
     public static <T extends BlockData> boolean editMeta(Block block, Class<T> dataCls, Consumer<? super T> consumer, boolean applyPhysics) {
         BlockData meta = block.getBlockData();
-        if (!dataCls.isInstance(meta)) return false;
+        if (!dataCls.isInstance(meta)) {
+            return false;
+        }
 
         consumer.accept(dataCls.cast(meta));
         block.setBlockData(meta, applyPhysics);

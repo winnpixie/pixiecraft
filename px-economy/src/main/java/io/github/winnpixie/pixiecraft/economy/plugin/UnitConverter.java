@@ -12,38 +12,43 @@ public class UnitConverter {
             return false;
         }
 
-        int negIdx = value.indexOf('-');
-        if (negIdx > 0
-                || negIdx < value.lastIndexOf('-')
-                || (negIdx + 1) == len) {
-            return false;
-        }
+        int dot = -1;
+        for (int i = 0; i < len; i++) {
+            char c = value.charAt(i);
 
-        int dotIdx = value.indexOf('.');
-        if (dotIdx < value.lastIndexOf('.')
-                || (dotIdx + 1) == len) {
-            return false;
-        }
+            switch (c) {
+                case '-':
+                    if (i > 0 || len == 1) {
+                        return false;
+                    }
+                    break;
+                case '.':
+                    if (dot > -1 || len == 1) {
+                        return false;
+                    }
 
-        for (char c : value.toCharArray()) {
-            if ((c < '0' || c > '9')
-                    && !(c == '-' || c == '.')) {
-                return false;
+                    dot = i;
+                    break;
+                default:
+                    if (c < '0' || c > '9') {
+                        return false;
+                    }
+                    break;
             }
         }
 
-        return dotIdx == -1 || (dotIdx + 3) >= len;
+        return dot == -1 || dot + 3 >= len;
     }
 
     public static long fromString(String value) {
         value = value.replace(",", "");
 
-        int dotIdx = value.indexOf('.');
-        if (dotIdx == -1) {
+        int dot = value.indexOf('.');
+        if (dot == -1) {
             return Long.parseLong(value) * 100L;
         }
 
-        if (dotIdx + 2 == value.length()) {
+        if (dot + 2 == value.length()) {
             value += "0";
         }
 
@@ -52,7 +57,7 @@ public class UnitConverter {
 
     public static String toString(long value) {
         String prefix = "";
-        
+
         if (value < 0) {
             value = -value;
             prefix = "-";

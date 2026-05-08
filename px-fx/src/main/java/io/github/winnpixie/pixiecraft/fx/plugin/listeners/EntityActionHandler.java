@@ -29,8 +29,8 @@ public class EntityActionHandler extends BaseEventHandler<PxEffectsPlugin> {
         Location location = event.getDamageSource().getDamageType() == DamageType.FALL ?
                 entity.getLocation() : entity.getEyeLocation();
 
-        entity.getWorld().spawnParticle(Particle.BLOCK, location, FxConfig.PARTICLE_COUNT,
-                FxConfig.OFFSET_X, FxConfig.OFFSET_Y, FxConfig.OFFSET_Z,
+        entity.getWorld().spawnParticle(Particle.BLOCK, location, FxConfig.FART_PARTICLE_COUNT,
+                FxConfig.FART_OFFSET_X, FxConfig.FART_OFFSET_Y, FxConfig.FART_OFFSET_Z,
                 ParticleHelper.getBlockFor(entity));
     }
 }
