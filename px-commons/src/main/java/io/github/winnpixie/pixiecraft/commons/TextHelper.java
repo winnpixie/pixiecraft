@@ -45,6 +45,50 @@ public class TextHelper {
     private TextHelper() {
     }
 
+    public static char getPercentColorCode(int value, int target) {
+        return getPercentColorCode((float) value, (float) target);
+    }
+
+    public static char getPercentColorCode(long value, long target) {
+        return getPercentColorCode((double) value, (double) target);
+    }
+
+    public static char getPercentColorCode(float value, float target) {
+        float percent = value / target;
+
+        if (percent >= 0.84f) {
+            return 'a'; // Green
+        } else if (percent >= 0.68f) {
+            return '2'; // Dark Green
+        } else if (percent >= 0.52f) {
+            return 'e'; // Yellow
+        } else if (percent >= 0.36f) {
+            return '6'; // Gold (Orange)
+        } else if (percent >= 0.20f) {
+            return 'c'; // Red
+        }
+
+        return '4'; // Dark Red
+    }
+
+    public static char getPercentColorCode(double value, double target) {
+        double percent = value / target;
+
+        if (percent >= 0.84) {
+            return 'a'; // Green
+        } else if (percent >= 0.68) {
+            return '2'; // Dark Green
+        } else if (percent >= 0.52) {
+            return 'e'; // Yellow
+        } else if (percent >= 0.36) {
+            return '6'; // Gold (Orange)
+        } else if (percent >= 0.20) {
+            return 'c'; // Red
+        }
+
+        return '4'; // Dark Red
+    }
+
     public static String formatted(String text) {
         return fromStyleCodes(fromStyleTags(fromHexCodes(text)));
     }

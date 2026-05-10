@@ -1,5 +1,6 @@
 package io.github.winnpixie.pixiecraft.hud.plugin;
 
+import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -7,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
 public class CustomScoreboard {
+    private static final int MAX_ACCEPTABLE_LATENCY = 300;
     private static final String PREFIX = "\u00A7f> ";
 
     private final PxHUDPlugin plugin;
@@ -81,7 +83,8 @@ public class CustomScoreboard {
 
         Team ping = scoreboard.getTeam("ping");
         int latency = player.getPing();
-        ping.setSuffix(":\u00A7f \u00A7%c%dms".formatted(getLatencyColor(latency), latency));
+        char latencyColor = TextHelper.getPercentColorCode(MAX_ACCEPTABLE_LATENCY - latency, MAX_ACCEPTABLE_LATENCY);
+        ping.setSuffix(":\u00A7f \u00A7%c%dms".formatted(latencyColor, latency));
 
         Team saturation = scoreboard.getTeam("saturation");
         saturation.setSuffix("\u00A7f %.1f".formatted(player.getSaturation()));
@@ -98,22 +101,6 @@ public class CustomScoreboard {
 
         Team locZ = scoreboard.getTeam("z");
         locZ.setSuffix(":\u00A7f %.1f".formatted(location.getZ()));
-    }
-
-    private char getLatencyColor(int latency) {
-        if (latency > 249) {
-            return '4'; // Dark Red
-        } else if (latency > 199) {
-            return 'c'; // Red
-        } else if (latency > 149) {
-            return '6'; // Gold / Close enough to orange for my liking
-        } else if (latency > 99) {
-            return 'e'; // Yellow
-        } else if (latency > 49) {
-            return '2'; // Dark Green
-        }
-
-        return 'a'; // Green
     }
 
     private long getTimeOfDay(World world) {
