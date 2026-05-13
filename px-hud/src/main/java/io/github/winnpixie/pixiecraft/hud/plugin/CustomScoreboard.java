@@ -20,57 +20,57 @@ public class CustomScoreboard {
     public void register(Player player) {
         Scoreboard scoreboard = plugin.getServer().getScoreboardManager().getNewScoreboard();
 
-        Objective hearts = scoreboard.registerNewObjective("sb_health", Criteria.HEALTH, "Hearts", RenderType.HEARTS);
-        hearts.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        Objective playerHealth = scoreboard.registerNewObjective("hud_health", Criteria.HEALTH, "Hearts", RenderType.HEARTS);
+        playerHealth.setDisplaySlot(DisplaySlot.PLAYER_LIST);
 
-        Objective titleBar = scoreboard.registerNewObjective("sb_title", Criteria.DUMMY, "World Time", RenderType.INTEGER);
-        titleBar.setDisplaySlot(DisplaySlot.SIDEBAR);
-        titleBar.getScore("------------").setScore(9);
+        Objective sideBar = scoreboard.registerNewObjective("hud_sidebar", Criteria.DUMMY, "World Time", RenderType.INTEGER);
+        sideBar.setDisplaySlot(DisplaySlot.SIDEBAR);
+        sideBar.getScore("------------").setScore(9);
 
         // Ping
         Team ping = scoreboard.registerNewTeam("ping");
         ping.setColor(ChatColor.DARK_PURPLE);
         ping.setPrefix(PREFIX);
         ping.addEntry("Ping");
-        titleBar.getScore("Ping").setScore(8);
+        sideBar.getScore("Ping").setScore(8);
 
         // SEPARATOR
-        titleBar.getScore("\u00A7f>\u00A70").setScore(7);
+        sideBar.getScore("\u00A7f>\u00A70").setScore(7);
 
         // Saturation
         Team saturation = scoreboard.registerNewTeam("saturation");
         saturation.setColor(ChatColor.YELLOW);
         saturation.setPrefix(PREFIX);
         saturation.addEntry("Sat.");
-        titleBar.getScore("Sat.").setScore(6);
+        sideBar.getScore("Sat.").setScore(6);
 
         // SEPARATOR
-        titleBar.getScore(">\u00A71").setScore(5);
+        sideBar.getScore(">\u00A71").setScore(5);
 
         // GPS
         Team direction = scoreboard.registerNewTeam("direction");
         direction.setColor(ChatColor.DARK_GRAY);
         direction.setPrefix(PREFIX);
         direction.addEntry("Dir.");
-        titleBar.getScore("Dir.").setScore(4);
+        sideBar.getScore("Dir.").setScore(4);
 
         Team coordX = scoreboard.registerNewTeam("x");
         coordX.setColor(ChatColor.GRAY);
         coordX.setPrefix(PREFIX);
         coordX.addEntry("X");
-        titleBar.getScore("X").setScore(3);
+        sideBar.getScore("X").setScore(3);
 
         Team coordY = scoreboard.registerNewTeam("y");
         coordY.setColor(ChatColor.GRAY);
         coordY.setPrefix(PREFIX);
         coordY.addEntry("Y");
-        titleBar.getScore("Y").setScore(2);
+        sideBar.getScore("Y").setScore(2);
 
         Team coordZ = scoreboard.registerNewTeam("z");
         coordZ.setColor(ChatColor.GRAY);
         coordZ.setPrefix(PREFIX);
         coordZ.addEntry("Z");
-        titleBar.getScore("Z").setScore(1);
+        sideBar.getScore("Z").setScore(1);
 
         player.setScoreboard(scoreboard);
         update(player);
@@ -78,7 +78,7 @@ public class CustomScoreboard {
 
     public void update(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
-        Objective titleBar = scoreboard.getObjective("sb_title");
+        Objective titleBar = scoreboard.getObjective("hud_sidebar");
         titleBar.setDisplayName(toTimeString(getTimeOfDay(player.getWorld())));
 
         Team ping = scoreboard.getTeam("ping");
