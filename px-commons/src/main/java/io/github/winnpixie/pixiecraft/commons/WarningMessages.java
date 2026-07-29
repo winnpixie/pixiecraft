@@ -4,7 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 
-public class CommonWarnings {
+public class WarningMessages {
     public static final BaseComponent CANNOT_EXECUTE = new ComponentBuilder("You cannot execute this action.")
             .color(ChatColor.DARK_RED)
             .build();
@@ -27,6 +27,12 @@ public class CommonWarnings {
             .color(ChatColor.RED)
             .build();
 
-    private CommonWarnings() {
+    private WarningMessages() {
+    }
+
+    public static BaseComponent custom(String message) {
+        return new ComponentBuilder(message)
+                .color(ChatColor.RED)
+                .build();
     }
 }

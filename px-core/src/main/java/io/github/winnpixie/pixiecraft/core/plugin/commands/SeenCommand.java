@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.core.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.BaseCommand;
 import io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin;
 import net.md_5.bungee.api.ChatColor;
@@ -25,7 +25,7 @@ public class SeenCommand extends BaseCommand<PxCorePlugin> {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 1) {
-            sender.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
+            sender.spigot().sendMessage(WarningMessages.MISSING_PARAMETERS);
             return false;
         }
 
@@ -37,7 +37,7 @@ public class SeenCommand extends BaseCommand<PxCorePlugin> {
 
         player = getPlugin().getServer().getOfflinePlayer(args[0]);
         if (!player.hasPlayedBefore()) {
-            sender.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
+            sender.spigot().sendMessage(WarningMessages.INVALID_TARGET);
             return false;
         }
 

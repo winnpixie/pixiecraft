@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
@@ -21,19 +21,19 @@ public class PayCommand extends PlayerCommand<PxEconomyPlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
+            player.spigot().sendMessage(WarningMessages.MISSING_PARAMETERS);
             return false;
         }
 
         Player receiver = getPlugin().getServer().getPlayerExact(args[0]);
         if (receiver == null) {
-            player.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
+            player.spigot().sendMessage(WarningMessages.INVALID_TARGET);
             return false;
         }
 
         String requestedAmount = args[1];
         if (!UnitConverter.isUnit(requestedAmount)) {
-            player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
+            player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
             return false;
         }
 

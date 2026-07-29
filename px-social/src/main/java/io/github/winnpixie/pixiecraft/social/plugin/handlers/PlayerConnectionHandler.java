@@ -6,6 +6,7 @@ import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerConnectionHandler extends BaseEventHandler<PxSocialPlugin> {
     public PlayerConnectionHandler(PxSocialPlugin plugin) {
@@ -22,5 +23,12 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxSocialPlugin> {
         if (pdc.has("nickname")) {
             player.setDisplayName(pdc.getString("nickname"));
         }
+
+        getPlugin().getBubbleTracker().add(player);
+    }
+
+    @EventHandler
+    private void onQuit(PlayerQuitEvent event) {
+        getPlugin().getBubbleTracker().remove(event.getPlayer());
     }
 }

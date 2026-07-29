@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.mature.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
@@ -21,20 +21,20 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
+            player.spigot().sendMessage(WarningMessages.MISSING_PARAMETERS);
             return false;
         }
 
         String choice = args[0];
         if (!choice.equalsIgnoreCase("heads")
                 && !choice.equalsIgnoreCase("tails")) {
-            player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
+            player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
         String wager = args[1];
         if (!UnitConverter.isUnit(wager)) {
-            player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
+            player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
             return false;
         }
 

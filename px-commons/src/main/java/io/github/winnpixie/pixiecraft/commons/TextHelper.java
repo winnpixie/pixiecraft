@@ -108,13 +108,13 @@ public class TextHelper {
         Function<MatchResult, String> transformer = match -> {
             String hex = match.group(1);
 
-            char[] formatted = new char[14];
+            StringBuilder builder = new StringBuilder("\u00A7x");
             for (int i = 0; i < hex.length(); i++) {
-                formatted[(i * 2)] = '\u00A7';
-                formatted[(i * 2) + 1] = Character.toLowerCase(hex.charAt(i));
+                builder.append('\u00A7')
+                        .append(hex.charAt(i));
             }
 
-            return new String(formatted);
+            return builder.toString();
         };
 
         text = LEGACY_HEX_PATTERN.matcher(text).replaceAll(transformer);

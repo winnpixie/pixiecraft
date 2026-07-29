@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
@@ -32,7 +32,7 @@ public class ChannelCommand extends PlayerCommand<PxSocialPlugin> {
         if (args.length > 0) {
             String channel = args[0].toLowerCase();
             if (illegalChannelChars.matcher(channel).matches()) {
-                player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
+                player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
                 return false;
             }
 

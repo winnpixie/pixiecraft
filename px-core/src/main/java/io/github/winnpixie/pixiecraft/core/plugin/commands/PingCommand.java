@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.core.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.BaseCommand;
 import io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin;
 import net.md_5.bungee.api.ChatColor;
@@ -19,7 +19,7 @@ public class PingCommand extends BaseCommand<PxCorePlugin> {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 1) {
             if (!(sender instanceof Player player)) {
-                sender.spigot().sendMessage(CommonWarnings.PLAYERS_ONLY);
+                sender.spigot().sendMessage(WarningMessages.PLAYERS_ONLY);
                 return false;
             }
 
@@ -36,7 +36,7 @@ public class PingCommand extends BaseCommand<PxCorePlugin> {
 
         Player player = getPlugin().getServer().getPlayerExact(args[0]);
         if (player == null) {
-            sender.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
+            sender.spigot().sendMessage(WarningMessages.INVALID_TARGET);
             return false;
         }
 

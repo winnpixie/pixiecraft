@@ -1,7 +1,7 @@
 name: 'pxCore'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin'
-api-version: 26.1
+api-version: 26.2
 depend:
   - 'pxCommons'
 
@@ -15,3 +15,6 @@ commands:
   seen:
     description: 'View when [target] last joined'
     usage: '/seen <player>'
+  store-experience:
+    description: 'Store [levels] of experience within a book, or all if none is specified'
+    usage: '/store-experience [levels]'

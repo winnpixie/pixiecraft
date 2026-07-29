@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
@@ -33,7 +33,7 @@ public class ChatColorCommand extends PlayerCommand<PxSocialPlugin> {
             String color = args[0].toLowerCase();
 
             if (color.length() != 6 || nonHex.matcher(color).find()) {
-                player.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
+                player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
                 return false;
             }
 

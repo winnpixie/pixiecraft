@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
@@ -17,7 +17,7 @@ public class ChatFilterCommand extends PlayerCommand<PxSocialPlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         if (args.length < 1) {
-            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
+            player.spigot().sendMessage(WarningMessages.MISSING_PARAMETERS);
             return false;
         }
 

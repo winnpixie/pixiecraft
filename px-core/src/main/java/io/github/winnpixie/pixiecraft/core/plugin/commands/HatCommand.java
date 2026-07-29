@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.core.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin;
 import net.md_5.bungee.api.ChatColor;
@@ -26,7 +26,7 @@ public class HatCommand extends PlayerCommand<PxCorePlugin> {
     public boolean execute(Player player, Command command, String label, String[] args) {
         EntityEquipment equipment = player.getEquipment();
         if (equipment == null) {
-            player.spigot().sendMessage(CommonWarnings.CANNOT_EXECUTE);
+            player.spigot().sendMessage(WarningMessages.CANNOT_EXECUTE);
             return false;
         }
 

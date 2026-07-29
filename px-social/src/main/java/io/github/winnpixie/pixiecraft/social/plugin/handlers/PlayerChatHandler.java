@@ -48,5 +48,10 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         event.setMessage(message);
         char channelColor = channel.equals("global") ? '8' : '7';
         event.setFormat("\u00A7%c[#%s] \u00A7r%%1$s\u00A7r: %%2$s".formatted(channelColor, channel));
+
+        // Only show bubbles when talking in #global
+        if (channel.equals("global")) {
+            getPlugin().getBubbleTracker().get(player).display(message);
+        }
     }
 }

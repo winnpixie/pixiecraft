@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
@@ -20,7 +20,7 @@ public class BalanceCommand extends PlayerCommand<PxEconomyPlugin> {
     public boolean execute(Player player, Command command, String label, String[] args) {
         IUser user = getPlugin().getUserManager().get(player);
         if (user == null) {
-            player.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
+            player.spigot().sendMessage(WarningMessages.INVALID_TARGET);
             return false;
         }
 

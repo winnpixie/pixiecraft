@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
 import net.md_5.bungee.api.ChatColor;
@@ -16,13 +16,13 @@ public class WhisperCommand extends PlayerCommand<PxSocialPlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         if (args.length < 2) {
-            player.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
+            player.spigot().sendMessage(WarningMessages.MISSING_PARAMETERS);
             return false;
         }
 
         Player receiver = getPlugin().getServer().getPlayerExact(args[0]);
         if (receiver == null) {
-            player.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
+            player.spigot().sendMessage(WarningMessages.INVALID_TARGET);
             return false;
         }
 

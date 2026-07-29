@@ -1,6 +1,6 @@
 name: 'pxHUD'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.hud.plugin.PxHUDPlugin'
-api-version: 26.1
+api-version: 26.2
 depend:
   - 'pxCommons'

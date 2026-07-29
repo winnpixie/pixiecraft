@@ -3,7 +3,7 @@ package io.github.winnpixie.pixiecraft.agriculture.plugin.handlers;
 import io.github.winnpixie.pixiecraft.agriculture.plugin.PxAgriculturePlugin;
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
 import io.github.winnpixie.pixiecraft.commons.BlockHelper;
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -102,7 +102,7 @@ public class PlayerActionHandler extends BaseEventHandler<PxAgriculturePlugin> {
             return;
         }
 
-        player.spigot().sendMessage(CommonWarnings.CANNOT_EXECUTE);
+        player.spigot().sendMessage(WarningMessages.CANNOT_EXECUTE);
         event.setCancelled(true);
     }
 }

@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.economy.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.CommonWarnings;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.BaseCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
@@ -22,18 +22,18 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("eco.manage")) {
-            sender.spigot().sendMessage(CommonWarnings.LACKS_PERMISSION);
+            sender.spigot().sendMessage(WarningMessages.LACKS_PERMISSION);
             return false;
         }
 
         if (args.length < 2) {
-            sender.spigot().sendMessage(CommonWarnings.MISSING_PARAMETERS);
+            sender.spigot().sendMessage(WarningMessages.MISSING_PARAMETERS);
             return false;
         }
 
         Player player = getPlugin().getServer().getPlayerExact(args[1]);
         if (player == null) {
-            sender.spigot().sendMessage(CommonWarnings.INVALID_TARGET);
+            sender.spigot().sendMessage(WarningMessages.INVALID_TARGET);
             return false;
         }
 
@@ -80,7 +80,7 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
 
     private boolean grant(CommandSender sender, Player player, IWallet wallet, String requestedAmount) {
         if (!UnitConverter.isUnit(requestedAmount)) {
-            sender.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
+            sender.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
@@ -106,7 +106,7 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
 
     private boolean tax(CommandSender sender, Player player, IWallet wallet, String requestedAmount) {
         if (!UnitConverter.isUnit(requestedAmount)) {
-            sender.spigot().sendMessage(CommonWarnings.WRONG_ARGUMENT_TYPE);
+            sender.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
             return false;
         }
 
