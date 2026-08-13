@@ -61,20 +61,22 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
             return;
         }
 
-        String coordinateFmt = "%.f1";
-        player.spigot().sendMessage(new ComponentBuilder("You died at")
+        String coordinateFmt = "%.1f";
+        player.spigot().sendMessage(new ComponentBuilder("You died at ")
                 .color(ChatColor.DARK_PURPLE)
-                .append(" X ")
-                .color(ChatColor.DARK_PURPLE)
+                .append("X ")
+                .color(ChatColor.LIGHT_PURPLE)
                 .append(coordinateFmt.formatted(deathLoc.getX()))
-                .append(" Y ")
+                .append(", Y ")
                 .append(coordinateFmt.formatted(deathLoc.getY()))
-                .append(" Z ")
+                .append(", Z ")
                 .append(coordinateFmt.formatted(deathLoc.getZ()))
                 .append(" in the ")
                 .color(ChatColor.DARK_PURPLE)
                 .append(world.getEnvironment().name())
                 .color(ChatColor.LIGHT_PURPLE)
+                .append(" world")
+                .color(ChatColor.DARK_PURPLE)
                 .build());
     }
 
