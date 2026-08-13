@@ -9,8 +9,10 @@ import io.github.winnpixie.pixiecraft.economy.api.IWallet;
 import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
+import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,13 +41,44 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         if (victim instanceof Player poorSoul) {
             handleBeheading(attacker, poorSoul);
         } else {
-            handleCurrencyDrop(attacker);
+            handleLooseChange(attacker);
         }
     }
 
     @EventHandler
     private void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
+
+        handleDeathMarker(player);
+
+        handleWalletDrop(player);
+    }
+
+    private void handleDeathMarker(Player player) {
+        Location deathLoc = player.getLocation();
+        World world = deathLoc.getWorld();
+        if (world == null) {
+            return;
+        }
+
+        String coordinateFmt = "%.f1";
+        player.spigot().sendMessage(new ComponentBuilder("You died at")
+                .color(ChatColor.DARK_PURPLE)
+                .append(" X ")
+                .color(ChatColor.DARK_PURPLE)
+                .append(coordinateFmt.formatted(deathLoc.getX()))
+                .append(" Y ")
+                .append(coordinateFmt.formatted(deathLoc.getY()))
+                .append(" Z ")
+                .append(coordinateFmt.formatted(deathLoc.getZ()))
+                .append(" in the ")
+                .color(ChatColor.DARK_PURPLE)
+                .append(world.getEnvironment().name())
+                .color(ChatColor.LIGHT_PURPLE)
+                .build());
+    }
+
+    private void handleWalletDrop(Player player) {
         IUser user = getPlugin().getEconomy().getUserManager().get(player);
         IWallet wallet = user.getWallet();
         if (wallet.getBalance() == 0L) {
@@ -78,7 +111,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         attacker.getWorld().dropItemNaturally(victim.getLocation(), head);
     }
 
-    private void handleCurrencyDrop(Player attacker) {
+    private void handleLooseChange(Player attacker) {
         long drop = MathHelper.randomLong(1L, 101L);
 
         IUser user = getPlugin().getEconomy().getUserManager().get(attacker);
