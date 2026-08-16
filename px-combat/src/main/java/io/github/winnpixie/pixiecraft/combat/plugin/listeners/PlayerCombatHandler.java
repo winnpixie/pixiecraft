@@ -13,6 +13,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.World;
+import org.bukkit.entity.Ageable;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,7 +42,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         if (victim instanceof Player poorSoul) {
             handleBeheading(attacker, poorSoul);
         } else {
-            handleLooseChange(attacker);
+            handleLooseChange(attacker, victim);
         }
     }
 
@@ -113,7 +114,12 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         attacker.getWorld().dropItemNaturally(victim.getLocation(), head);
     }
 
-    private void handleLooseChange(Player attacker) {
+    private void handleLooseChange(Player attacker, LivingEntity victim) {
+        if (victim instanceof Ageable ageable
+                && !ageable.isAdult()) {
+            return; // do not incentivize the slaughtering of younglings
+        }
+
         long drop = MathHelper.randomLong(1L, 101L);
 
         IUser user = getPlugin().getEconomy().getUserManager().get(attacker);

@@ -40,7 +40,7 @@ public class PayCommand extends PlayerCommand<PxEconomyPlugin> {
         IUser payer = getPlugin().getUserManager().get(player);
         IWallet payerWallet = payer.getWallet();
 
-        long amount = UnitConverter.fromString(requestedAmount);
+        long amount = UnitConverter.valueOf(requestedAmount);
         if (!payerWallet.spend(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;

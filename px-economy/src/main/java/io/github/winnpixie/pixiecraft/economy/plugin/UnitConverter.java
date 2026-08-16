@@ -4,17 +4,17 @@ public class UnitConverter {
     private UnitConverter() {
     }
 
-    public static boolean isUnit(String value) {
-        value = value.replace(",", ""); // comma separators don't matter.
+    public static boolean isUnit(String text) {
+        text = text.replace(",", ""); // comma separators don't matter.
 
-        int len = value.length();
+        int len = text.length();
         if (len == 0) {
             return false;
         }
 
         int dot = -1;
         for (int i = 0; i < len; i++) {
-            char c = value.charAt(i);
+            char c = text.charAt(i);
 
             switch (c) {
                 case '-':
@@ -40,19 +40,19 @@ public class UnitConverter {
         return dot == -1 || dot + 3 >= len;
     }
 
-    public static long fromString(String value) {
-        value = value.replace(",", "");
+    public static long valueOf(String text) {
+        text = text.replace(",", "");
 
-        int dot = value.indexOf('.');
+        int dot = text.indexOf('.');
         if (dot == -1) {
-            return Long.parseLong(value) * 100L;
+            return Long.parseLong(text) * 100L;
         }
 
-        if (dot + 2 == value.length()) {
-            value += "0";
+        if (dot + 2 == text.length()) {
+            text += "0";
         }
 
-        return Long.parseLong(value.replace(".", ""));
+        return Long.parseLong(text.replace(".", ""));
     }
 
     public static String toString(long value) {

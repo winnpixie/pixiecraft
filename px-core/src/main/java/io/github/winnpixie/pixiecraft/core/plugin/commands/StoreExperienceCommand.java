@@ -71,7 +71,7 @@ public class StoreExperienceCommand extends PlayerCommand<PxCorePlugin> {
 
         oldBook.setAmount(oldBook.getAmount() - 1);
         player.getInventory().addItem(bookOfKnowledge)
-                .forEach((idx, item) -> player.getWorld().dropItem(player.getLocation(), item));
+                .forEach((idx, item) -> player.getWorld().dropItemNaturally(player.getLocation(), item));
 
         player.setLevel(player.getLevel() - levels);
 
@@ -90,14 +90,14 @@ public class StoreExperienceCommand extends PlayerCommand<PxCorePlugin> {
     private ItemStack getBook(Player player) {
         PlayerInventory inventory = player.getInventory();
 
-        // Main Hand
+        // Primary Hand
         ItemStack item = inventory.getItem(EquipmentSlot.HAND);
         if (item != null
                 && item.getType() == Material.BOOK) {
             return item;
         }
 
-        // Off hand
+        // Other hand
         item = inventory.getItem(EquipmentSlot.OFF_HAND);
         if (item != null
                 && item.getType() == Material.BOOK) {

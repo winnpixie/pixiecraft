@@ -84,7 +84,7 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
             return false;
         }
 
-        long amount = UnitConverter.fromString(requestedAmount);
+        long amount = UnitConverter.valueOf(requestedAmount);
         if (!wallet.earn(amount)) {
             sender.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_FUNDS);
             return false;
@@ -110,7 +110,7 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
             return false;
         }
 
-        long amount = UnitConverter.fromString(requestedAmount);
+        long amount = UnitConverter.valueOf(requestedAmount);
         if (!wallet.spend(amount)) {
             sender.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_FUNDS);
             return false;

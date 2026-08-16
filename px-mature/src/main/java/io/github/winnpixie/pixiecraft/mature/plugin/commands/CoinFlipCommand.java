@@ -41,7 +41,7 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
         IUser user = getPlugin().getEconomy().getUserManager().get(player);
         IWallet wallet = user.getWallet();
 
-        long amount = UnitConverter.fromString(wager);
+        long amount = UnitConverter.valueOf(wager);
         if (!wallet.spend(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;

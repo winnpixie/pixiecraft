@@ -157,7 +157,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
             return false;
         }
 
-        long amount = UnitConverter.fromString(requestedAmount);
+        long amount = UnitConverter.valueOf(requestedAmount);
         if (!user.getWallet().spend(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
             return false;
@@ -190,7 +190,7 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
             return false;
         }
 
-        long amount = UnitConverter.fromString(requestedAmount);
+        long amount = UnitConverter.valueOf(requestedAmount);
         if (!account.withdraw(amount)) {
             player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_FUNDS);
             return false;
