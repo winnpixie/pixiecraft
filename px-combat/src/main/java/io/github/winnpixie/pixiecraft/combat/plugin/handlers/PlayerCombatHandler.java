@@ -1,4 +1,4 @@
-package io.github.winnpixie.pixiecraft.combat.plugin.listeners;
+package io.github.winnpixie.pixiecraft.combat.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.combat.plugin.PxCombatPlugin;
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
@@ -6,6 +6,8 @@ import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.builders.ItemBuilder;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
+import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
+import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -93,10 +95,10 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         wallet.spend(drop);
 
         player.spigot().sendMessage(new ComponentBuilder("Dropped ")
-                .color(ChatColor.DARK_GREEN)
+                .color(ChatColor.RED)
                 .append(UnitConverter.toString(drop))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .build());
     }
@@ -117,7 +119,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
     private void handleLooseChange(Player attacker, LivingEntity victim) {
         if (victim instanceof Ageable ageable
                 && !ageable.isAdult()) {
-            return; // do not incentivize the slaughtering of younglings
+            return; // do not incentivize the slaughtering of children
         }
 
         long drop = MathHelper.randomLong(1L, 101L);
@@ -129,7 +131,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
                 .color(ChatColor.DARK_GREEN)
                 .append(UnitConverter.toString(drop))
                 .color(ChatColor.LIGHT_PURPLE)
-                .append(" Fairy Dust")
+                .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                 .color(ChatColor.DARK_PURPLE)
                 .build());
     }

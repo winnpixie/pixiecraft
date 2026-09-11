@@ -24,24 +24,6 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxEconomyPlugin> {
         if (getPlugin().getCentralBank().find(user) == null) {
             getPlugin().getCentralBank().register(user);
         }
-
-        double firstJoinBonus = EconomyConfig.FIRST_JOIN_BONUS;
-        if (!player.hasPlayedBefore()
-                && firstJoinBonus > 0.0) {
-            user.getWallet().earn((long) (firstJoinBonus * 100.00));
-
-            player.spigot().sendMessage(new ComponentBuilder("You've earned ")
-                    .color(ChatColor.DARK_GREEN)
-                    .append("%.2f".formatted(firstJoinBonus))
-                    .color(ChatColor.LIGHT_PURPLE)
-                    .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
-                    .color(ChatColor.DARK_PURPLE)
-                    .append(" for joining for your first time!")
-                    .color(ChatColor.DARK_GREEN)
-                    .append(" Thank you for being here! :)")
-                    .color(ChatColor.GREEN)
-                    .build());
-        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

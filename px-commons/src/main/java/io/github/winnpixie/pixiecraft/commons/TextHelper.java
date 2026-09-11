@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class TextHelper {
     private static final Pattern LEGACY_HEX_PATTERN = Pattern.compile("[&\u00A7]#([a-f0-9]{6})", Pattern.CASE_INSENSITIVE);
     private static final Pattern HEX_TAG_PATTERN = Pattern.compile("<#([a-f0-9]{6})>", Pattern.CASE_INSENSITIVE);
-    private static final Pattern TAG_PATTERN = Pattern.compile("<([a-z]+)>", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TAG_PATTERN = Pattern.compile("<([a-z_]+)>", Pattern.CASE_INSENSITIVE);
     private static final Map<String, Character> TAGS_TO_CODES;
 
     static {
@@ -100,7 +100,7 @@ public class TextHelper {
     public static String fromStyleTags(String text) {
         return TAG_PATTERN.matcher(text).replaceAll(match -> {
             char code = TAGS_TO_CODES.getOrDefault(match.group(1).toLowerCase(), '\0');
-            return code == '\0' ? "\u00A7" + code : match.group();
+            return code == '\0' ? match.group() : "\u00A7" + code;
         });
     }
 

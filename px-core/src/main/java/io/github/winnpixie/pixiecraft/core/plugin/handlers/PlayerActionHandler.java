@@ -1,7 +1,8 @@
-package io.github.winnpixie.pixiecraft.core.plugin;
+package io.github.winnpixie.pixiecraft.core.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
+import io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Material;
@@ -13,8 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-public class PlayerActionListener extends BaseEventHandler<PxCorePlugin> {
-    public PlayerActionListener(PxCorePlugin plugin) {
+public class PlayerActionHandler extends BaseEventHandler<PxCorePlugin> {
+    public PlayerActionHandler(PxCorePlugin plugin) {
         super(plugin);
     }
 

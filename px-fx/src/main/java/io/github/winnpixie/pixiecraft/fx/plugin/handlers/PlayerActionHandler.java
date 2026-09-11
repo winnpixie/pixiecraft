@@ -1,4 +1,4 @@
-package io.github.winnpixie.pixiecraft.fx.plugin.listeners;
+package io.github.winnpixie.pixiecraft.fx.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
 import io.github.winnpixie.pixiecraft.commons.MathHelper;

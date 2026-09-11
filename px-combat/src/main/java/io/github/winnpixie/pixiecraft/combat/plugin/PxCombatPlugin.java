@@ -1,6 +1,6 @@
 package io.github.winnpixie.pixiecraft.combat.plugin;
 
-import io.github.winnpixie.pixiecraft.combat.plugin.listeners.PlayerCombatHandler;
+import io.github.winnpixie.pixiecraft.combat.plugin.handlers.PlayerCombatHandler;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import org.bukkit.plugin.java.JavaPlugin;
 

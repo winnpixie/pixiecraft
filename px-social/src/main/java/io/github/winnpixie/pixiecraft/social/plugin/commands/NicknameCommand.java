@@ -11,7 +11,10 @@ import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
 public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
-    private final BaseComponent nickResetMessage = new ComponentBuilder("Your nickname has been cleared.")
+    private final BaseComponent blankWarning = new ComponentBuilder("Your nickname cannot be blank!")
+            .color(ChatColor.RED)
+            .build();
+    private final BaseComponent resetMessage = new ComponentBuilder("Your nickname has been cleared.")
             .color(ChatColor.DARK_PURPLE)
             .build();
 
@@ -25,6 +28,11 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
 
         if (args.length > 0) {
             String nickname = TextHelper.formatted(args[0]);
+            if (ChatColor.stripColor(nickname).isBlank()) {
+                player.spigot().sendMessage(blankWarning);
+                return false;
+            }
+
             player.setDisplayName(nickname);
             pdc.setString("nickname", nickname);
 
@@ -38,7 +46,7 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
         player.setDisplayName(null);
         pdc.remove("nickname");
 
-        player.spigot().sendMessage(nickResetMessage);
+        player.spigot().sendMessage(resetMessage);
         return true;
     }
 }

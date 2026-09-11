@@ -8,10 +8,4 @@ public class EconomyConfig {
 
     @Linked("currency-name")
     public static String CURRENCY_NAME;
-
-    @Linked("hourly-wage")
-    public static double HOURLY_WAGE;
-
-    @Linked("first-join-bonus")
-    public static double FIRST_JOIN_BONUS;
 }

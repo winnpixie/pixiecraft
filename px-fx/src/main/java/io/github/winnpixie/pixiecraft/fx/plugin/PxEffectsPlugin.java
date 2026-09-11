@@ -1,8 +1,8 @@
 package io.github.winnpixie.pixiecraft.fx.plugin;
 
 import io.github.winnpixie.pixiecraft.commons.config.ConfigurationLoader;
-import io.github.winnpixie.pixiecraft.fx.plugin.listeners.EntityActionHandler;
-import io.github.winnpixie.pixiecraft.fx.plugin.listeners.PlayerActionHandler;
+import io.github.winnpixie.pixiecraft.fx.plugin.handlers.EntityActionHandler;
+import io.github.winnpixie.pixiecraft.fx.plugin.handlers.PlayerActionHandler;
 import io.github.winnpixie.pixiecraft.fx.plugin.utilities.FxConfig;
 import io.github.winnpixie.pixiecraft.fx.plugin.utilities.ParticleHelper;
 import org.bukkit.plugin.java.JavaPlugin;

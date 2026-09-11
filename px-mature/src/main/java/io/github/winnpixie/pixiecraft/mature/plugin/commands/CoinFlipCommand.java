@@ -5,6 +5,7 @@ import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
+import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
 import io.github.winnpixie.pixiecraft.economy.plugin.EconomyWarnings;
 import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import io.github.winnpixie.pixiecraft.mature.plugin.PxMaturePlugin;
@@ -61,7 +62,7 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
                     .color(ChatColor.GREEN)
                     .append(UnitConverter.toString(amount))
                     .color(ChatColor.LIGHT_PURPLE)
-                    .append(" Fairy Dust")
+                    .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                     .color(ChatColor.DARK_PURPLE)
                     .build());
             wallet.earn(amount * 2L);
@@ -70,7 +71,7 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
                     .color(ChatColor.RED)
                     .append(UnitConverter.toString(amount))
                     .color(ChatColor.LIGHT_PURPLE)
-                    .append(" Fairy Dust")
+                    .append(" %s".formatted(EconomyConfig.CURRENCY_NAME))
                     .color(ChatColor.DARK_PURPLE)
                     .build());
         }
