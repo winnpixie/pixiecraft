@@ -21,8 +21,8 @@ public class PlayerActionHandler extends BaseEventHandler<PxAntiCheatPlugin> {
         Player player = event.getPlayer();
         ActiveUser user = getPlugin().getTracker().getActive(player);
 
-        long now = System.currentTimeMillis();
-        if (now - user.getLastMessageTime() < CheckConfig.CHAT_DELAY) {
+        long now = System.nanoTime();
+        if (now - user.getLastMessageTime() / 1000000 < CheckConfig.CHAT_DELAY) {
             player.spigot().sendMessage(TextComponent.fromLegacy(TextHelper.formatted(CheckConfig.CHAT_DELAY_WARNING)));
             event.setCancelled(true);
             return;

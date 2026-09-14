@@ -23,7 +23,7 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxAntiCheatPlugin>
             passive = getPlugin().getTracker().addPassive(player);
         }
 
-        if (System.currentTimeMillis() - passive.getLastQuitTime() < CheckConfig.JOIN_DELAY) {
+        if (System.nanoTime() - passive.getLastQuitTime() / 1000000 < CheckConfig.JOIN_DELAY) {
             player.kickPlayer(TextHelper.formatted(CheckConfig.JOIN_DELAY_WARNING));
             return;
         }
@@ -41,6 +41,6 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxAntiCheatPlugin>
             return;
         }
 
-        passive.setLastQuitTime(System.currentTimeMillis());
+        passive.setLastQuitTime(System.nanoTime());
     }
 }
