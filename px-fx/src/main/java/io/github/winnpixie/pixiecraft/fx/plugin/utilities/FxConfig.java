@@ -18,18 +18,18 @@ public class FxConfig {
     @Linked("standard.z-offset")
     public static double OFFSET_Z;
 
-    @Linked("farts.chance")
+    @Linked("fart.chance")
     public static double FART_CHANCE;
 
-    @Linked("farts.particle-count")
+    @Linked("fart.particle-count")
     public static int FART_PARTICLE_COUNT;
 
-    @Linked("farts.x-offset")
+    @Linked("fart.x-offset")
     public static double FART_OFFSET_X;
 
-    @Linked("farts.y-offset")
+    @Linked("fart.y-offset")
     public static double FART_OFFSET_Y;
 
-    @Linked("farts.z-offset")
+    @Linked("fart.z-offset")
     public static double FART_OFFSET_Z;
 }

@@ -4,6 +4,7 @@ import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
+import io.github.winnpixie.pixiecraft.social.plugin.bubbles.ChatBubble;
 import io.github.winnpixie.pixiecraft.social.plugin.utilities.MessageHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +26,7 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
 
         String channel = pdc.getString("chat_channel");
-        if (!channel.equals("global")) {
+        if (!"global".equals(channel)) {
             Set<Player> recipients = event.getRecipients();
             recipients.removeIf(recipient -> {
                 PDCWrapper<PxSocialPlugin> recipientPdc = new PDCWrapper<>(getPlugin(), recipient);
@@ -46,7 +47,16 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         }
 
         event.setMessage(message);
-        char channelColor = channel.equals("global") ? '8' : '7';
+        char channelColor = "global".equals(channel) ? '8' : '7';
         event.setFormat("\u00A7%c[#%s] \u00A7r%%1$s\u00A7r: %%2$s".formatted(channelColor, channel));
+
+        if ("global".equals(channel)) {
+            ChatBubble bubble = getPlugin().getBubbles().get(player);
+            if (bubble == null) {
+                return; // safe myself, for now.
+            }
+
+            bubble.display(message);
+        }
     }
 }

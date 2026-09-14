@@ -34,7 +34,7 @@ public class TextHelper {
                 Map.entry("white", 'f'),
 
                 Map.entry("obfuscated", 'k'), Map.entry("obscure", 'k'),
-                Map.entry("bold", 'l'),
+                Map.entry("bold", 'l'), Map.entry("strong", 'l'),
                 Map.entry("strikethrough", 'm'),
                 Map.entry("underlined", 'n'), Map.entry("underline", 'n'),
                 Map.entry("italic", 'o'), Map.entry("emphasized", 'o'),

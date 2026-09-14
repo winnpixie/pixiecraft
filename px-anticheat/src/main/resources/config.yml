@@ -1,0 +1,8 @@
+connections:
+  join-delay: 3000
+  join-delay-warning: "<red>Please wait <dark_red>3s<red> before logging back in."
+
+chat:
+  message-delay: 500
+  message-delay-warning: "<red>Please wait <dark_red>0.5s<red> before sending another message."
+  repeat-message-warning: "<yellow>Please do not repeat yourself!"
