@@ -38,7 +38,7 @@ public class ChannelCommand extends PlayerCommand<PxSocialPlugin> {
 
             pdc.setString("chat_channel", channel);
 
-            player.spigot().sendMessage(new ComponentBuilder("Your chat color has been set: ")
+            player.spigot().sendMessage(new ComponentBuilder("Your chat channel has been set: ")
                     .color(ChatColor.DARK_PURPLE)
                     .append("#%s".formatted(channel))
                     .color(ChatColor.LIGHT_PURPLE)

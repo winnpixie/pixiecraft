@@ -1,10 +1,14 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.TextHelper;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
+import io.github.winnpixie.pixiecraft.economy.api.IUser;
+import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
+import io.github.winnpixie.pixiecraft.economy.plugin.EconomyWarnings;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
+import io.github.winnpixie.pixiecraft.social.plugin.SocialConfig;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -35,6 +39,21 @@ public class ChatColorCommand extends PlayerCommand<PxSocialPlugin> {
             if (color.length() != 6 || nonHex.matcher(color).find()) {
                 player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
                 return false;
+            }
+
+            if (SocialConfig.CHAT_COLOR_PRICE > 0.0) {
+                IUser user = getPlugin().getEconomy().getUserManager().get(player);
+                if (!user.getWallet().spend((long) (SocialConfig.CHAT_COLOR_PRICE * 100.00))) {
+                    player.spigot().sendMessage(EconomyWarnings.INSUFFICIENT_WALLET_FUNDS);
+
+                    player.spigot().sendMessage(WarningMessages.custom("Changing your chat color costs %.2f %s"
+                            .formatted(SocialConfig.CHAT_COLOR_PRICE, EconomyConfig.CURRENCY_NAME)));
+                    return false;
+                }
+
+                player.spigot().sendMessage(TextComponent.fromLegacy(TextHelper.formatted(
+                        "<green>Changing your chat color costed you <magenta>%.2f %s"
+                                .formatted(SocialConfig.CHAT_COLOR_PRICE, EconomyConfig.CURRENCY_NAME))));
             }
 
             pdc.setString("chat_color", color);

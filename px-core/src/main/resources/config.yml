@@ -3,7 +3,7 @@ newbies:
     - "<magenta>Welcome! <dark_purple>Here are a few commands you should know."
     - "<dark_purple>- <magenta>/help <dark_purple>- shows all commands available for you to use."
     - "<dark_purple>- <magenta>/rules <dark_purple>- shows the rules you must abide by. (NOT IMPLEMENTED)"
-  bonus-pay: 15.00
+  bonus-pay: 13.37
 
 connections:
   join-message: '<green>+ {PLAYER_NAME}'

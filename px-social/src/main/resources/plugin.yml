@@ -15,11 +15,11 @@ commands:
     usage: '/chat-filter <uwu|leet>'
   chat-color:
     aliases: [ 'chatcolor', 'color', 'cc' ]
-    description: 'Set your chat message color.'
+    description: 'Set or clear your chat message color.'
     usage: '/chat-color [RRGGBB]'
   nickname:
     aliases: [ 'nick' ]
-    description: 'Set your chat nickname.'
+    description: 'Set or clear your chat nickname.'
     usage: '/nickname [name]'
   whisper:
     aliases: [ 'message', 'msg', 'pm', 'tell', 'w' ]
