@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class SeenCommand extends BaseCommand<PxCorePlugin> {
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy '@' HH:mm:ss a")
@@ -52,5 +53,14 @@ public class SeenCommand extends BaseCommand<PxCorePlugin> {
                 .color(ChatColor.DARK_PURPLE)
                 .append(dateTimeFormatter.format(instant))
                 .color(ChatColor.LIGHT_PURPLE).build());
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return null;
+        }
+
+        return super.onTabComplete(sender, command, label, args);
     }
 }

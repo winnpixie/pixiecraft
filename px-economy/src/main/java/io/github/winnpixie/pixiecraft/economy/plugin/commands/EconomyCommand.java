@@ -14,6 +14,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
     public EconomyCommand(PxEconomyPlugin plugin) {
         super("economy", plugin);
@@ -128,5 +130,14 @@ public class EconomyCommand extends BaseCommand<PxEconomyPlugin> {
                 .color(ChatColor.GREEN)
                 .build());
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return switch (args.length) {
+            case 1 -> List.of("grant", "tax", "balance");
+            case 2 -> null;
+            default -> super.onTabComplete(sender, command, label, args);
+        };
     }
 }

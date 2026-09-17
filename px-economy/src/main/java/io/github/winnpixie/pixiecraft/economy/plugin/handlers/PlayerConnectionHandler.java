@@ -2,10 +2,7 @@ package io.github.winnpixie.pixiecraft.economy.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
-import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

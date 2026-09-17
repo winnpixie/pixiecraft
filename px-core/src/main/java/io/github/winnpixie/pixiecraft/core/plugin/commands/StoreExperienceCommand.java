@@ -18,6 +18,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class StoreExperienceCommand extends PlayerCommand<PxCorePlugin> {
     private final BaseComponent noBookMessage = new ComponentBuilder("You must be holding a plain book.")
@@ -105,5 +106,14 @@ public class StoreExperienceCommand extends PlayerCommand<PxCorePlugin> {
         }
 
         return null;
+    }
+
+    @Override
+    public List<String> tabComplete(Player player, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return List.of(Integer.toString(player.getLevel()));
+        }
+
+        return super.tabComplete(player, command, label, args);
     }
 }

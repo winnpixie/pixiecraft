@@ -14,6 +14,8 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
     public BankCommand(PxEconomyPlugin plugin) {
         super("bank", plugin);
@@ -210,5 +212,14 @@ public class BankCommand extends PlayerCommand<PxEconomyPlugin> {
                 .color(ChatColor.GREEN)
                 .build());
         return true;
+    }
+
+    @Override
+    public List<String> tabComplete(Player player, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return List.of("accounts", "balance", "open", "close", "deposit", "withdraw");
+        }
+
+        return super.tabComplete(player, command, label, args);
     }
 }

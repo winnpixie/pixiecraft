@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class PingCommand extends BaseCommand<PxCorePlugin> {
     public PingCommand(PxCorePlugin plugin) {
         super("ping", plugin);
@@ -49,5 +51,14 @@ public class PingCommand extends BaseCommand<PxCorePlugin> {
                 .italic(true)
                 .build());
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return null;
+        }
+
+        return super.onTabComplete(sender, command, label, args);
     }
 }

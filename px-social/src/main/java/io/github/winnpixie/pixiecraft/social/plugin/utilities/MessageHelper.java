@@ -6,6 +6,9 @@ public class MessageHelper {
     private static final Pattern UWU_PATTERN = Pattern.compile("[uor]", Pattern.CASE_INSENSITIVE);
     private static final Pattern LEET_PATTERN = Pattern.compile("[abelostz]", Pattern.CASE_INSENSITIVE);
 
+    private MessageHelper() {
+    }
+
     public static String uwuify(String text) {
         return UWU_PATTERN.matcher(text).replaceAll(match -> {
             String letter = match.group();
@@ -36,8 +39,5 @@ public class MessageHelper {
                 default -> letter;
             };
         });
-    }
-
-    private MessageHelper() {
     }
 }

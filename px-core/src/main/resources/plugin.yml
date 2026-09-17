@@ -1,9 +1,10 @@
 name: 'pxCore'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin'
-api-version: 26.2
+api-version: 26.3
 depend:
   - 'pxCommons'
+  - 'pxEconomy'
 
 commands:
   hat:

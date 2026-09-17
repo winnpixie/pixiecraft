@@ -8,6 +8,8 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class WhisperCommand extends PlayerCommand<PxSocialPlugin> {
     public WhisperCommand(PxSocialPlugin plugin) {
         super("whisper", plugin);
@@ -54,5 +56,14 @@ public class WhisperCommand extends PlayerCommand<PxSocialPlugin> {
                 .color(ChatColor.WHITE)
                 .build());
         return true;
+    }
+
+    @Override
+    public List<String> tabComplete(Player player, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return null;
+        }
+
+        return super.tabComplete(player, command, label, args);
     }
 }

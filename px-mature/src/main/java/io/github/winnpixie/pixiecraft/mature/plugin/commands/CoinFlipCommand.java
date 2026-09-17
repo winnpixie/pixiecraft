@@ -1,7 +1,7 @@
 package io.github.winnpixie.pixiecraft.mature.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.MathHelper;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
@@ -13,6 +13,8 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
     public CoinFlipCommand(PxMaturePlugin plugin) {
@@ -76,5 +78,14 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
                     .build());
         }
         return true;
+    }
+
+    @Override
+    public List<String> tabComplete(Player player, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return List.of("heads", "tails");
+        }
+
+        return super.tabComplete(player, command, label, args);
     }
 }

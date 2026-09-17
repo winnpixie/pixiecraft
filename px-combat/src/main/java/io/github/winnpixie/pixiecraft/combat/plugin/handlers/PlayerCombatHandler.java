@@ -7,7 +7,6 @@ import io.github.winnpixie.pixiecraft.commons.builders.ItemBuilder;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
 import io.github.winnpixie.pixiecraft.economy.plugin.EconomyConfig;
-import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import io.github.winnpixie.pixiecraft.economy.plugin.UnitConverter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;

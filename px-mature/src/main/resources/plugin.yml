@@ -1,7 +1,7 @@
 name: 'pxMature'
 version: '0.1'
 main: 'io.github.winnpixie.pixiecraft.mature.plugin.PxMaturePlugin'
-api-version: 26.2
+api-version: 26.3
 depend:
   - 'pxCommons'
   - 'pxEconomy'
