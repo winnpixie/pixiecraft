@@ -19,4 +19,7 @@ public class CoreConfig {
 
     @Linked("connections.quit-message")
     public static String QUIT_MESSAGE;
+
+    @Linked("connections.messages-of-the-day")
+    public static List<String> MESSAGES_OF_THE_DAY;
 }

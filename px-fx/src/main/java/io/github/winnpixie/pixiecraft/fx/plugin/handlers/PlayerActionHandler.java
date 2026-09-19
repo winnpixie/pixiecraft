@@ -6,7 +6,10 @@ import io.github.winnpixie.pixiecraft.fx.plugin.PxEffectsPlugin;
 import io.github.winnpixie.pixiecraft.fx.plugin.utilities.FxConfig;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 
@@ -21,13 +24,35 @@ public class PlayerActionHandler extends BaseEventHandler<PxEffectsPlugin> {
             return;
         }
 
-        // TODO: Recreate Tom Clancy's The Division 2 level-up effect
+        // TODO: Recreate the level-up effect from Tom Clancy's The Division 2
         Player player = event.getPlayer();
         player.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, player.getEyeLocation(), FxConfig.PARTICLE_COUNT,
                 FxConfig.OFFSET_X, FxConfig.OFFSET_Y, FxConfig.OFFSET_Z);
     }
 
-    // TODO: Fart
+    @EventHandler(priority = EventPriority.LOWEST)
+    private void onAttack(EntityDamageByEntityEvent event) {
+        if (!(event.getDamager() instanceof Player attacker)) {
+            return;
+        }
+
+        if (!attacker.isSneaking()) {
+            return;
+        }
+
+        if (!(event.getEntity() instanceof Tameable tameable)) {
+            return;
+        }
+
+        if (!tameable.isTamed()) {
+            return;
+        }
+
+        event.setCancelled(true);
+        tameable.getWorld().spawnParticle(Particle.HEART, tameable.getLocation(), FxConfig.PARTICLE_COUNT,
+                FxConfig.OFFSET_X, FxConfig.OFFSET_Y, FxConfig.OFFSET_Z);
+    }
+
     @EventHandler
     private void onToggleSneak(PlayerToggleSneakEvent event) {
         if (!event.isSneaking()) {

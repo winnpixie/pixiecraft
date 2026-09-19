@@ -8,3 +8,9 @@ newbies:
 connections:
   join-message: '<green>+ {PLAYER_NAME}'
   quit-message: '<red>- {PLAYER_NAME}'
+  messages-of-the-day:
+    - "<red>We steal your data and sell it to the highest bidder."
+    - "<gold>It's as <bold>shrimple<reset><gold> as that."
+    - "<white>So what can I <obfuscated><bold>FISHING<reset><white> get you?"
+    - "<gold>You are one in a <bold>krillion<reset><gold>."
+    - "<red>Krill yourself."

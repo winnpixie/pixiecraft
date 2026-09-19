@@ -7,6 +7,7 @@ import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
 import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -15,7 +16,7 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxAntiCheatPlugin>
         super(plugin);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     private void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         PassiveUser passive = getPlugin().getTracker().getPassive(player);
@@ -31,7 +32,7 @@ public class PlayerConnectionHandler extends BaseEventHandler<PxAntiCheatPlugin>
         getPlugin().getTracker().addActive(player);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     private void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         getPlugin().getTracker().removeActive(player);

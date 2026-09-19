@@ -1,6 +1,7 @@
 package io.github.winnpixie.pixiecraft.core.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
+import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.TextHelper;
 import io.github.winnpixie.pixiecraft.core.plugin.CoreConfig;
 import io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 
 public class ConnectionHandler extends BaseEventHandler<PxCorePlugin> {
     public ConnectionHandler(PxCorePlugin plugin) {
@@ -60,5 +62,17 @@ public class ConnectionHandler extends BaseEventHandler<PxCorePlugin> {
         event.setQuitMessage(TextHelper.formatted(CoreConfig.QUIT_MESSAGE
                 .replace("{PLAYER_NAME}", event.getPlayer().getName())
         ));
+    }
+
+    @EventHandler
+    private void onPing(ServerListPingEvent event) {
+        if (CoreConfig.MESSAGES_OF_THE_DAY.isEmpty()) {
+            return;
+        }
+
+        int idx = MathHelper.randomInt(0, CoreConfig.MESSAGES_OF_THE_DAY.size());
+        String motd = CoreConfig.MESSAGES_OF_THE_DAY.get(idx);
+
+        event.setMotd(TextHelper.formatted(motd));
     }
 }
