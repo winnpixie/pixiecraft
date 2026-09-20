@@ -9,11 +9,11 @@ connections:
   join-message: "<green>+ {PLAYER_NAME}"
   quit-message: "<red>- {PLAYER_NAME}"
   messages-of-the-day:
-    - "<red><strikethrough>We steal your data and sell it to the highest bidder."
+    - "<dark_red>We steal your data and sell it to the highest bidder."
     - "<gold>It's as <bold>shrimple<reset><gold> as that."
     - "<white>So, what can I <obfuscated><bold>FISHING<reset><white> get you?"
     - "<gold>You are one in a <bold>krillion<reset><gold>."
-    - "<red>Krill yourself."
+    - "<red><bold>Krill<reset><red> yourself."
 
 server-rules:
   - "Be respectful towards your fellow gamers."
