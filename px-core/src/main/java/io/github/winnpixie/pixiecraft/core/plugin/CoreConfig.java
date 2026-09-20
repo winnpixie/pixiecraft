@@ -22,4 +22,7 @@ public class CoreConfig {
 
     @Linked("connections.messages-of-the-day")
     public static List<String> MESSAGES_OF_THE_DAY;
+
+    @Linked("server-rules")
+    public static List<String> SERVER_RULES;
 }

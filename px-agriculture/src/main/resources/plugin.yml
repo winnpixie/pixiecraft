@@ -1,12 +1,12 @@
-name: 'pxAgriculture'
-version: '0.1'
-main: 'io.github.winnpixie.pixiecraft.agriculture.plugin.PxAgriculturePlugin'
+name: "pxAgriculture"
+version: "0.1"
+main: "io.github.winnpixie.pixiecraft.agriculture.plugin.PxAgriculturePlugin"
 api-version: 26.3
 depend:
-  - 'pxCommons'
+  - "pxCommons"
 
 commands:
   toggle-stripping:
-    aliases: [ 'togglestripping' ]
-    description: 'Toggle your ability to strip wooden logs with an Axe'
-    usage: '/toggle-stripping'
+    aliases: [ "togglestripping" ]
+    description: "Toggle your ability to strip wooden logs with an Axe"
+    usage: "/toggle-stripping"

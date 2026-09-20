@@ -2,15 +2,20 @@ newbies:
   welcome-message:
     - "<magenta>Welcome! <dark_purple>Here are a few commands you should know."
     - "<dark_purple>- <magenta>/help <dark_purple>- shows all commands available for you to use."
-    - "<dark_purple>- <magenta>/rules <dark_purple>- shows the rules you must abide by. (NOT IMPLEMENTED)"
+    - "<dark_purple>- <magenta>/rules <dark_purple>- shows the rules you must abide by."
   bonus-pay: 13.37
 
 connections:
-  join-message: '<green>+ {PLAYER_NAME}'
-  quit-message: '<red>- {PLAYER_NAME}'
+  join-message: "<green>+ {PLAYER_NAME}"
+  quit-message: "<red>- {PLAYER_NAME}"
   messages-of-the-day:
-    - "<red>We steal your data and sell it to the highest bidder."
+    - "<red><strikethrough>We steal your data and sell it to the highest bidder."
     - "<gold>It's as <bold>shrimple<reset><gold> as that."
     - "<white>So, what can I <obfuscated><bold>FISHING<reset><white> get you?"
     - "<gold>You are one in a <bold>krillion<reset><gold>."
     - "<red>Krill yourself."
+
+server-rules:
+  - "Be respectful towards your fellow gamers."
+  - "Do not cause significant lag to the server."
+  - "If something seems wrong, express your concerns to winnpixie."

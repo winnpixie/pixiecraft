@@ -1,10 +1,7 @@
 package io.github.winnpixie.pixiecraft.core.plugin;
 
 import io.github.winnpixie.pixiecraft.commons.config.ConfigurationLoader;
-import io.github.winnpixie.pixiecraft.core.plugin.commands.HatCommand;
-import io.github.winnpixie.pixiecraft.core.plugin.commands.PingCommand;
-import io.github.winnpixie.pixiecraft.core.plugin.commands.SeenCommand;
-import io.github.winnpixie.pixiecraft.core.plugin.commands.StoreExperienceCommand;
+import io.github.winnpixie.pixiecraft.core.plugin.commands.*;
 import io.github.winnpixie.pixiecraft.core.plugin.handlers.ConnectionHandler;
 import io.github.winnpixie.pixiecraft.core.plugin.handlers.EntityActionHandler;
 import io.github.winnpixie.pixiecraft.core.plugin.handlers.PlayerActionHandler;
@@ -35,6 +32,7 @@ public class PxCorePlugin extends JavaPlugin {
 
         new HatCommand(this).register();
         new PingCommand(this).register();
+        new RulesCommand(this).register();
         new SeenCommand(this).register();
         new StoreExperienceCommand(this).register();
     }

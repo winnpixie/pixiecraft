@@ -48,6 +48,7 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
 
         event.setMessage(message);
         char channelColor = "global".equals(channel) ? '8' : '7';
+        // FIXME: Make this look like less of an eye-sore
         event.setFormat("\u00A7%c[#%s] \u00A7r%%1$s\u00A7r: %%2$s".formatted(channelColor, channel));
 
         if ("global".equals(channel)) {

@@ -1,28 +1,28 @@
-name: 'pxSocial'
-version: '0.1'
-main: 'io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin'
+name: "pxSocial"
+version: "0.1"
+main: "io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin"
 api-version: 26.3
 depend:
-  - 'pxCommons'
-  - 'pxEconomy'
+  - "pxCommons"
+  - "pxEconomy"
 
 commands:
   channel:
-    description: 'Set or clear your chat messaging channel.'
-    usage: '/channel [channel]'
+    description: "Set or clear your chat messaging channel."
+    usage: "/channel [channel]"
   chat-filter:
-    aliases: [ 'chatfilter', 'filter' ]
-    description: 'Toggle chat message filters.'
-    usage: '/chat-filter <uwu|leet>'
+    aliases: [ "chatfilter", "filter" ]
+    description: "Toggle chat message filters."
+    usage: "/chat-filter <uwu|leet>"
   chat-color:
-    aliases: [ 'chatcolor', 'color', 'cc' ]
-    description: 'Set or clear your chat message color.'
-    usage: '/chat-color [RRGGBB]'
+    aliases: [ "chatcolor", "color", "cc" ]
+    description: "Set or clear your chat message color."
+    usage: "/chat-color [RRGGBB]"
   nickname:
-    aliases: [ 'nick' ]
-    description: 'Set or clear your chat nickname.'
-    usage: '/nickname [name]'
+    aliases: [ "nick" ]
+    description: "Set or clear your chat nickname."
+    usage: "/nickname [name]"
   whisper:
-    aliases: [ 'message', 'msg', 'pm', 'tell', 'w' ]
-    description: 'Privately send <message> to <receiver>.'
-    usage: '/whisper <receiver> <message>'
+    aliases: [ "message", "msg", "pm", "tell", "w" ]
+    description: "Privately send <message> to <receiver>."
+    usage: "/whisper <receiver> <message>"

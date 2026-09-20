@@ -1,21 +1,23 @@
-name: 'pxCore'
-version: '0.1'
-main: 'io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin'
+name: "pxCore"
+version: "0.1"
+main: "io.github.winnpixie.pixiecraft.core.plugin.PxCorePlugin"
 api-version: 26.3
 depend:
-  - 'pxCommons'
-  - 'pxEconomy'
+  - "pxCommons"
+  - "pxEconomy"
 
 commands:
   hat:
-    description: 'Equip any item in your main hand as a helmet'
-    usage: '/hat'
+    description: "Equip any item in your main hand as a helmet"
+    usage: "/hat"
   ping:
-    description: 'View the latency of yourself or [player]'
-    usage: '/ping [player]'
+    description: "View the latency of yourself or [player]"
+    usage: "/ping [player]"
+  rules:
+    description: "Display the rules of this Minecraft server."
   seen:
-    description: 'View when [target] last joined'
-    usage: '/seen <player>'
+    description: "View when [target] last joined"
+    usage: "/seen <player>"
   store-experience:
-    description: 'Store [levels] of experience within a book, or all if none is specified'
-    usage: '/store-experience [levels]'
+    description: "Store [levels] of experience within a book, or all if none is specified"
+    usage: "/store-experience [levels]"
