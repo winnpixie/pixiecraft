@@ -15,23 +15,30 @@ public class ChannelCommand extends PlayerCommand<PxSocialPlugin> {
     private final Pattern illegalChannelChars = Pattern.compile("\\W", Pattern.CASE_INSENSITIVE);
 
     public ChannelCommand(PxSocialPlugin plugin) {
-        super("channel", plugin);
+        super("chat-channel", plugin);
     }
 
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
-        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
-
-        String newChannel = "global";
+        String newChannel = "";
 
         if (args.length > 0) {
             newChannel = args[0].toLowerCase();
+            if (newChannel.indexOf('#') == 0) {
+                newChannel = newChannel.substring(1);
+            }
+
             if (illegalChannelChars.matcher(newChannel).matches()) {
                 player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
                 return false;
             }
         }
 
+        if (newChannel.isBlank()) {
+            newChannel = "global";
+        }
+
+        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
         pdc.setString("chat_channel", newChannel);
 
         player.spigot().sendMessage(new ComponentBuilder("Your chat channel has been set: ")

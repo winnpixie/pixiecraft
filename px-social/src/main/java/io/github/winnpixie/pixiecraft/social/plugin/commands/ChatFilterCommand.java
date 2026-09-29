@@ -1,9 +1,10 @@
 package io.github.winnpixie.pixiecraft.social.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
+import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
+import io.github.winnpixie.pixiecraft.social.plugin.utilities.MessageHelper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.command.Command;
@@ -25,10 +26,11 @@ public class ChatFilterCommand extends PlayerCommand<PxSocialPlugin> {
 
         return switch (args[0].toLowerCase()) {
             case "uwu" -> {
-                boolean uwu = pdc.has("uwu_filter") && pdc.getBoolean("uwu_filter");
-                pdc.setBoolean("uwu_filter", !uwu);
+                boolean uwu = pdc.has(MessageHelper.UWU_TAG)
+                        && pdc.getBoolean(MessageHelper.UWU_TAG);
+                pdc.setBoolean(MessageHelper.UWU_TAG, !uwu);
 
-                player.spigot().sendMessage(new ComponentBuilder("UwU Filter: ")
+                player.spigot().sendMessage(new ComponentBuilder("UwU: ")
                         .color(ChatColor.DARK_PURPLE)
                         .append(String.valueOf(!uwu))
                         .color(ChatColor.LIGHT_PURPLE)
@@ -36,10 +38,11 @@ public class ChatFilterCommand extends PlayerCommand<PxSocialPlugin> {
                 yield true;
             }
             case "leet" -> {
-                boolean leet = pdc.has("leet_filter") && pdc.getBoolean("leet_filter");
-                pdc.setBoolean("leet_filter", !leet);
+                boolean leet = pdc.has(MessageHelper.LEET_TAG)
+                        && pdc.getBoolean(MessageHelper.LEET_TAG);
+                pdc.setBoolean(MessageHelper.LEET_TAG, !leet);
 
-                player.spigot().sendMessage(new ComponentBuilder("L33T Filter: ")
+                player.spigot().sendMessage(new ComponentBuilder("1337: ")
                         .color(ChatColor.DARK_PURPLE)
                         .append(String.valueOf(!leet))
                         .color(ChatColor.LIGHT_PURPLE)

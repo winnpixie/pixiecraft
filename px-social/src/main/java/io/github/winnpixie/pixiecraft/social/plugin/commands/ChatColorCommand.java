@@ -12,14 +12,13 @@ import io.github.winnpixie.pixiecraft.social.plugin.SocialConfig;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
 import java.util.regex.Pattern;
 
 public class ChatColorCommand extends PlayerCommand<PxSocialPlugin> {
-    private final BaseComponent colorClearedMessage = new ComponentBuilder("Chat color has been cleared.")
+    private final BaseComponent colorClearedMessage = new ComponentBuilder("Your chat color has been cleared.")
             .color(ChatColor.DARK_PURPLE)
             .build();
 
@@ -31,12 +30,15 @@ public class ChatColorCommand extends PlayerCommand<PxSocialPlugin> {
 
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
-        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
+        String newColor = "";
 
         if (args.length > 0) {
-            String color = args[0].toLowerCase();
+            newColor = args[0].toLowerCase();
+            if (newColor.indexOf('#') == 0) {
+                newColor = newColor.substring(1);
+            }
 
-            if (color.length() != 6 || nonHex.matcher(color).find()) {
+            if (newColor.length() != 6 || nonHex.matcher(newColor).find()) {
                 player.spigot().sendMessage(WarningMessages.WRONG_ARGUMENT_TYPE);
                 return false;
             }
@@ -51,23 +53,28 @@ public class ChatColorCommand extends PlayerCommand<PxSocialPlugin> {
                     return false;
                 }
 
-                player.spigot().sendMessage(TextComponent.fromLegacy(TextHelper.formatted(
-                        "<green>Changing your chat color costed you <magenta>%.2f %s"
-                                .formatted(SocialConfig.CHAT_COLOR_PRICE, EconomyConfig.CURRENCY_NAME))));
+                player.spigot().sendMessage(new ComponentBuilder("Changing your chat color costed ")
+                        .color(ChatColor.GREEN)
+                        .append("%.2f %s".formatted(SocialConfig.CHAT_COLOR_PRICE, EconomyConfig.CURRENCY_NAME))
+                        .color(ChatColor.LIGHT_PURPLE)
+                        .build());
             }
-
-            pdc.setString("chat_color", color);
-
-            player.spigot().sendMessage(new ComponentBuilder("Your chat color has been set: ")
-                    .color(ChatColor.DARK_PURPLE)
-                    .append(TextComponent.fromLegacy(TextHelper.fromHexCodes("<#%s>#%1$s".formatted(color))))
-                    .build());
-            return true;
         }
 
-        pdc.remove("chat_color");
+        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
+        if (!newColor.isBlank()) {
+            pdc.setString("chat_color", newColor);
 
-        player.spigot().sendMessage(colorClearedMessage);
+            player.spigot().sendMessage(new ComponentBuilder("Your chat color is now ")
+                    .color(ChatColor.DARK_PURPLE)
+                    .appendLegacy(TextHelper.fromHexCodes("<#%s>#%1$s".formatted(newColor)))
+                    .build());
+        } else {
+            pdc.remove("chat_color");
+
+            player.spigot().sendMessage(colorClearedMessage);
+        }
+
         return true;
     }
 }

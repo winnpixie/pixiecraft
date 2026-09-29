@@ -1,15 +1,35 @@
 package io.github.winnpixie.pixiecraft.social.plugin.utilities;
 
+import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
+import io.github.winnpixie.pixiecraft.social.plugin.PxSocialPlugin;
+
 import java.util.regex.Pattern;
 
 public class MessageHelper {
+    public static final String UWU_TAG = "uwu_filter";
+    public static final String LEET_TAG = "leet_filter";
+
     private static final Pattern UWU_PATTERN = Pattern.compile("[uor]", Pattern.CASE_INSENSITIVE);
     private static final Pattern LEET_PATTERN = Pattern.compile("[abelostz]", Pattern.CASE_INSENSITIVE);
 
     private MessageHelper() {
     }
 
-    public static String uwuify(String text) {
+    public static String transform(PDCWrapper<PxSocialPlugin> pdc, String original) {
+        String message = original;
+
+        if (pdc.has(UWU_TAG) && pdc.getBoolean(UWU_TAG)) {
+            message = transformUwU(message);
+        }
+
+        if (pdc.has(LEET_TAG) && pdc.getBoolean(LEET_TAG)) {
+            message = transformLeet(message);
+        }
+
+        return message;
+    }
+
+    private static String transformUwU(String text) {
         return UWU_PATTERN.matcher(text).replaceAll(match -> {
             String letter = match.group();
             return switch (letter) {
@@ -24,7 +44,7 @@ public class MessageHelper {
         });
     }
 
-    public static String hack(String text) {
+    private static String transformLeet(String text) {
         return LEET_PATTERN.matcher(text).replaceAll(match -> {
             String letter = match.group();
             return switch (letter) {

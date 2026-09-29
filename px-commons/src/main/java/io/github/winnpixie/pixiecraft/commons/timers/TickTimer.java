@@ -5,7 +5,7 @@ import io.github.winnpixie.pixiecraft.commons.plugin.PxCommonsPlugin;
 public class TickTimer implements ITimer {
     private static PxCommonsPlugin plugin;
 
-    private long tick;
+    private long lastTick;
 
     public static void setPlugin(PxCommonsPlugin plugin) {
         if (TickTimer.plugin != null) {
@@ -20,12 +20,12 @@ public class TickTimer implements ITimer {
     }
 
     @Override
-    public boolean hasElapsed(long duration) {
-        return plugin.getTickTracker().getCurrentTick() - duration > tick;
+    public long getElapsed() {
+        return plugin.getTickTracker().getCurrentTick() - lastTick;
     }
 
     @Override
     public void reset() {
-        this.tick = plugin.getTickTracker().getCurrentTick();
+        this.lastTick = plugin.getTickTracker().getCurrentTick();
     }
 }

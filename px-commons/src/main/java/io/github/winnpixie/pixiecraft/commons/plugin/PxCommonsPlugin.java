@@ -1,19 +1,21 @@
 package io.github.winnpixie.pixiecraft.commons.plugin;
 
+import io.github.winnpixie.pixiecraft.commons.TickTracker;
 import io.github.winnpixie.pixiecraft.commons.timers.TickTimer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PxCommonsPlugin extends JavaPlugin {
-    private ServerTickTracker tickTracker;
+    private TickTracker tickTracker;
 
-    public ServerTickTracker getTickTracker() {
+    public TickTracker getTickTracker() {
         return tickTracker;
     }
 
     @Override
     public void onEnable() {
-        this.tickTracker = new ServerTickTracker();
-        getServer().getScheduler().runTaskTimer(this, tickTracker, 0L, 0L);
+        TickTrackerTask trackerTask = new TickTrackerTask(this);
+        this.tickTracker = trackerTask;
+        getServer().getScheduler().runTaskTimer(this, trackerTask, 0L, 0L);
 
         TickTimer.setPlugin(this);
     }

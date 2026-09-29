@@ -13,6 +13,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.util.Set;
 
 public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
+    private static final String GLOBAL_CHANNEL = "global";
 
     public PlayerChatHandler(PxSocialPlugin plugin) {
         super(plugin);
@@ -25,36 +26,48 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
 
         PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
 
-        String channel = pdc.getString("chat_channel");
-        if (!"global".equals(channel)) {
+        String chatChannel = pdc.getString("chat_channel");
+        if (chatChannel == null) {
+            chatChannel = GLOBAL_CHANNEL;
+        }
+
+        if (!GLOBAL_CHANNEL.equals(chatChannel)) {
+            final String selectedChannel = chatChannel;
             Set<Player> recipients = event.getRecipients();
             recipients.removeIf(recipient -> {
                 PDCWrapper<PxSocialPlugin> recipientPdc = new PDCWrapper<>(getPlugin(), recipient);
-                return !recipientPdc.getString("chat_channel").equals(channel);
+                String recipientChannel = recipientPdc.getString("chat_channel");
+                if (recipientChannel == null) {
+                    recipientChannel = GLOBAL_CHANNEL;
+                }
+
+                return !recipientChannel.equals(selectedChannel);
             });
         }
 
-        if (pdc.has("uwu_filter") && pdc.getBoolean("uwu_filter")) {
-            message = MessageHelper.uwuify(message);
-        }
-
-        if (pdc.has("leet_filter") && pdc.getBoolean("leet_filter")) {
-            message = MessageHelper.hack(message);
-        }
+        message = MessageHelper.transform(pdc, message);
 
         if (pdc.has("chat_color")) {
             message = "%s%s".formatted(TextHelper.fromHexCodes("<#%s>".formatted(pdc.getString("chat_color"))), message);
         }
 
         event.setMessage(message);
-        char channelColor = "global".equals(channel) ? '8' : '7';
-        // FIXME: Make this look like less of an eye-sore
-        event.setFormat("\u00A7%c[#%s] \u00A7r%%1$s\u00A7r: %%2$s".formatted(channelColor, channel));
 
-        if ("global".equals(channel)) {
+        char channelColor = GLOBAL_CHANNEL.equals(chatChannel) ? '8' : '7';
+        String fmt = "\u00A7%c[#%s] \u00A7r".formatted(channelColor, chatChannel);
+        if (pdc.has("nickname")) {
+            fmt += "\"%1$s\u00A7r\"";
+        } else {
+            fmt += "%1$s";
+        }
+        fmt += "\u00A7r: %2$s"; // Reset probably isn't necessary here, whatever
+        event.setFormat(fmt);
+
+        // Handle bubbles
+        if (GLOBAL_CHANNEL.equals(chatChannel)) {
             ChatBubble bubble = getPlugin().getBubbles().get(player);
             if (bubble == null) {
-                return; // safe myself, for now.
+                return; // safe, for now?
             }
 
             bubble.display(message);

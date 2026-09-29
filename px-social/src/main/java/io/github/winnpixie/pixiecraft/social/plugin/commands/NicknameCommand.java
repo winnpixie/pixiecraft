@@ -12,7 +12,6 @@ import io.github.winnpixie.pixiecraft.social.plugin.SocialConfig;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -30,11 +29,11 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
 
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
-        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
+        String newNickname = "";
 
         if (args.length > 0) {
-            String nickname = TextHelper.formatted(args[0]);
-            if (ChatColor.stripColor(nickname).isBlank()) {
+            newNickname = TextHelper.formatted(args[0]);
+            if (ChatColor.stripColor(newNickname).isBlank()) {
                 player.spigot().sendMessage(blankWarning);
                 return false;
             }
@@ -49,25 +48,30 @@ public class NicknameCommand extends PlayerCommand<PxSocialPlugin> {
                     return false;
                 }
 
-                player.spigot().sendMessage(TextComponent.fromLegacy(TextHelper.formatted(
-                        "<green>Changing your nickname costed you <magenta>%.2f %s"
-                                .formatted(SocialConfig.NICKNAME_PRICE, EconomyConfig.CURRENCY_NAME))));
+                player.spigot().sendMessage(new ComponentBuilder("Changing your nickname costed ")
+                        .color(ChatColor.GREEN)
+                        .append("%.2f %s".formatted(SocialConfig.NICKNAME_PRICE, EconomyConfig.CURRENCY_NAME))
+                        .color(ChatColor.LIGHT_PURPLE)
+                        .build());
             }
-
-            player.setDisplayName(nickname);
-            pdc.setString("nickname", nickname);
-
-            player.spigot().sendMessage(new ComponentBuilder("Your nickname is now: ")
-                    .color(ChatColor.DARK_PURPLE)
-                    .appendLegacy("\u00A7r%s".formatted(nickname))
-                    .build());
-            return true;
         }
 
-        player.setDisplayName(null);
-        pdc.remove("nickname");
+        PDCWrapper<PxSocialPlugin> pdc = new PDCWrapper<>(getPlugin(), player);
+        if (!newNickname.isBlank()) {
+            player.setDisplayName(newNickname);
+            pdc.setString("nickname", newNickname);
 
-        player.spigot().sendMessage(resetMessage);
+            player.spigot().sendMessage(new ComponentBuilder("Your nickname is now ")
+                    .color(ChatColor.DARK_PURPLE)
+                    .appendLegacy("\u00A7r%s".formatted(newNickname))
+                    .build());
+        } else {
+            player.setDisplayName(null);
+            pdc.remove("nickname");
+
+            player.spigot().sendMessage(resetMessage);
+        }
+
         return true;
     }
 }

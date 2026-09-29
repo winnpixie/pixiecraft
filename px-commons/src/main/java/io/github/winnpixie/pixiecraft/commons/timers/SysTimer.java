@@ -12,8 +12,8 @@ public class SysTimer implements ITimer {
     }
 
     @Override
-    public boolean hasElapsed(long duration) {
-        return getNow() - duration > instant;
+    public long getElapsed() {
+        return getNow() - instant;
     }
 
     @Override
