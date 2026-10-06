@@ -1,0 +1,6 @@
+name: "pxAnnouncements"
+version: "0.1"
+main: "io.github.winnpixie.pixiecraft.announcements.plugin.PxAnnouncementsPlugin"
+api-version: 26.3
+depend:
+  - "pxCommons"

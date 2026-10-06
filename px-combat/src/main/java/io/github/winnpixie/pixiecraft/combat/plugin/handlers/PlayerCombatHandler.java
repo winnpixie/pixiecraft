@@ -14,9 +14,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.World;
-import org.bukkit.entity.Ageable;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -36,7 +34,13 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
             return;
         }
 
-        if (!(eveEvent.getDamager() instanceof Player attacker)) {
+        Entity killer = eveEvent.getDamager();
+        if (killer instanceof Projectile projectile
+                && projectile.getShooter() instanceof Player player) {
+            killer = player;
+        }
+
+        if (!(killer instanceof Player attacker)) {
             return;
         }
 
@@ -119,6 +123,11 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         if (victim instanceof Ageable ageable
                 && !ageable.isAdult()) {
             return; // do not incentivize the slaughtering of children
+        }
+
+        if (victim instanceof Tameable tameable
+                && tameable.isTamed()) {
+            return; // do not incentivize the slaughtering of pets
         }
 
         long drop = MathHelper.randomLong(1L, 101L);

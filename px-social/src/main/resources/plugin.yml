@@ -8,7 +8,7 @@ depend:
 
 commands:
   chat-channel:
-    alias: [ "channel" ]
+    aliases: [ "channel", "cc" ]
     description: "Set or clear your chat messaging channel."
     usage: "/channel [channel]"
   chat-filter:
@@ -16,7 +16,7 @@ commands:
     description: "Toggle chat message filters."
     usage: "/chat-filter <uwu|leet>"
   chat-color:
-    aliases: [ "chatcolor", "color", "cc" ]
+    aliases: [ "chatcolor", "color" ]
     description: "Set or clear your chat message color."
     usage: "/chat-color [RRGGBB]"
   nickname:

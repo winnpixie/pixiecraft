@@ -19,5 +19,6 @@ commands:
     description: "View when [target] last joined"
     usage: "/seen <player>"
   store-experience:
+    aliases: [ "bok" ]
     description: "Store [levels] of experience within a book, or all if none is specified"
     usage: "/store-experience [levels]"

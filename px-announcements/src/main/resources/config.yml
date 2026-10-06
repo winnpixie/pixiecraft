@@ -1,0 +1,28 @@
+interval: 30
+randomize: true
+prefix: "<magenta><bold>TIP: <reset>"
+suffix: "<reset>"
+messages:
+  - |
+    <dark_purple>Don't understand a command? Use <magenta>/help <command> <dark_purple>to read more about it!
+    * REMEMBER: <magenta><arg> <dark_purple>means it is required, <magenta>[arg] <dark_purple>is optional.
+  - |
+    <magenta>Fairy Dust <dark_purple>is this server's virtual currency.
+    See how much is in your wallet with <magenta>/balance
+    <dark_purple>Transact with others by using <magenta>/pay
+    <dark_purple>Store it away in the <magenta>/bank
+  - |
+    <dark_purple>Purchase cosmetics like custom chat colors and nicknames with:
+    > <magenta>/color [RRGGBB]
+    <dark_purple>> <magenta>/nick [name]
+  - |
+    <dark_purple>Whenever you die, you drop a bit of <magenta>Fairy Dust<dark_purple>!
+    Store it in the <magenta>bank <dark_purple>to prevent losing any!
+  - |
+    <dark_purple>LET'S GO GAMBLING!!! (<magenta>/coin-flip<dark_purple>)
+  - |
+    <dark_purple>Talk in party-like chats by entering <magenta>chat channels<dark_purple>.
+    > <magenta>/cc [channel]
+  - |
+    <dark_purple>This server features an entirely bespoke plugin suite developed by <magenta>winnpixie<dark_purple>!
+    See them all in <magenta>/plugins

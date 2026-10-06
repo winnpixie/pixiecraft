@@ -49,22 +49,8 @@ public class PlayerActionHandler extends BaseEventHandler<PxEffectsPlugin> {
         }
 
         event.setCancelled(true);
+
         tameable.getWorld().spawnParticle(Particle.HEART, tameable.getLocation(), FxConfig.PARTICLE_COUNT,
                 FxConfig.OFFSET_X, FxConfig.OFFSET_Y, FxConfig.OFFSET_Z);
-    }
-
-    @EventHandler
-    private void onToggleSneak(PlayerToggleSneakEvent event) {
-        if (!event.isSneaking()) {
-            return;
-        }
-
-        if (MathHelper.randomDouble(0.0, 1.0) > FxConfig.FART_CHANCE) {
-            return;
-        }
-
-        Player player = event.getPlayer();
-        player.getWorld().spawnParticle(Particle.GUST, player.getLocation(), FxConfig.FART_PARTICLE_COUNT,
-                FxConfig.FART_OFFSET_X, FxConfig.FART_OFFSET_Y, FxConfig.FART_OFFSET_Z);
     }
 }

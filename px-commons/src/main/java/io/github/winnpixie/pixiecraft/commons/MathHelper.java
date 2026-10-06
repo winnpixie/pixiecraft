@@ -9,6 +9,13 @@ public class MathHelper {
     private MathHelper() {
     }
 
+    /**
+     * Returns a pseudo-randomly generated integer value between {@code min} and {@code max}.
+     *
+     * @param min (inclusive) lower bound for values that can be returned
+     * @param max (exclusive) upper bound for values that can be returned
+     * @return randomly generated integer value
+     */
     public static int randomInt(int min, int max) {
         return RANDOM.nextInt(min, max);
     }
@@ -17,11 +24,18 @@ public class MathHelper {
         try {
             Integer.parseInt(value);
             return true;
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException _) {
             return false;
         }
     }
 
+    /**
+     * Returns a pseudo-randomly generated long value between {@code min} and {@code max}.
+     *
+     * @param min (inclusive) lower bound for values that can be returned
+     * @param max (exclusive) upper bound for values that can be returned
+     * @return randomly generated long value
+     */
     public static long randomLong(long min, long max) {
         return RANDOM.nextLong(min, max);
     }
@@ -30,11 +44,18 @@ public class MathHelper {
         try {
             Long.parseLong(value);
             return true;
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException _) {
             return false;
         }
     }
 
+    /**
+     * Returns a pseudo-randomly generated float value between {@code min} and {@code max}.
+     *
+     * @param min (inclusive) lower bound for values that can be returned
+     * @param max (exclusive) upper bound for values that can be returned
+     * @return randomly generated float value
+     */
     public static float randomFloat(float min, float max) {
         return RANDOM.nextFloat(min, max);
     }
@@ -44,11 +65,18 @@ public class MathHelper {
             float parsed = Float.parseFloat(value);
             return !Float.isNaN(parsed)
                     && !Float.isInfinite(parsed);
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException _) {
             return false;
         }
     }
 
+    /**
+     * Returns a pseudo-randomly generated double value between {@code min} and {@code max}.
+     *
+     * @param min (inclusive) lower bound for values that can be returned
+     * @param max (exclusive) upper bound for values that can be returned
+     * @return randomly generated double value
+     */
     public static double randomDouble(double min, double max) {
         return RANDOM.nextDouble(min, max);
     }
@@ -58,7 +86,7 @@ public class MathHelper {
             double parsed = Double.parseDouble(value);
             return !Double.isNaN(parsed)
                     && !Double.isInfinite(parsed);
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException _) {
             return false;
         }
     }

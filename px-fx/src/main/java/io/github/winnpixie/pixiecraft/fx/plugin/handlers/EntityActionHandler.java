@@ -16,7 +16,7 @@ public class EntityActionHandler extends BaseEventHandler<PxEffectsPlugin> {
         super(plugin);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void onEntityTakeDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof LivingEntity entity)) {
             return;

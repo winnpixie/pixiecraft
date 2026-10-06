@@ -63,5 +63,6 @@
         <module>px-hud</module>
         <module>px-mature</module>
         <module>px-social</module>
+        <module>px-announcements</module>
     </modules>
 </project>
