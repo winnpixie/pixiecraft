@@ -6,7 +6,11 @@ depend:
   - "pxCommons"
 
 commands:
+  toggle-pathing:
+    aliases: [ "togglepathing", "dirtpathing" ]
+    description: "Toggle creating paths with a shovel"
+    usage: "/toggle-pathing"
   toggle-stripping:
-    aliases: [ "togglestripping" ]
-    description: "Toggle your ability to strip wooden logs with an Axe"
+    aliases: [ "togglestripping", "logstripping" ]
+    description: "Toggle stripping wooden logs with an axe"
     usage: "/toggle-stripping"

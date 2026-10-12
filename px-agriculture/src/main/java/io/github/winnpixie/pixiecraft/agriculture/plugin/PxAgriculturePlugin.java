@@ -1,5 +1,6 @@
 package io.github.winnpixie.pixiecraft.agriculture.plugin;
 
+import io.github.winnpixie.pixiecraft.agriculture.plugin.commands.TogglePathingCommand;
 import io.github.winnpixie.pixiecraft.agriculture.plugin.commands.ToggleStrippingCommand;
 import io.github.winnpixie.pixiecraft.agriculture.plugin.handlers.PlayerActionHandler;
 import io.github.winnpixie.pixiecraft.agriculture.plugin.handlers.PlayerConnectionHandler;
@@ -11,6 +12,7 @@ public class PxAgriculturePlugin extends JavaPlugin {
         new PlayerConnectionHandler(this).register();
         new PlayerActionHandler(this).register();
 
+        new TogglePathingCommand(this).register();
         new ToggleStrippingCommand(this).register();
     }
 }

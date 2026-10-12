@@ -1,5 +1,6 @@
 package io.github.winnpixie.pixiecraft.agriculture.plugin.commands;
 
+import io.github.winnpixie.pixiecraft.agriculture.plugin.KeyTags;
 import io.github.winnpixie.pixiecraft.agriculture.plugin.PxAgriculturePlugin;
 import io.github.winnpixie.pixiecraft.commons.PDCWrapper;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
@@ -24,9 +25,9 @@ public class ToggleStrippingCommand extends PlayerCommand<PxAgriculturePlugin> {
     @Override
     public boolean execute(Player player, Command command, String label, String[] args) {
         PDCWrapper<PxAgriculturePlugin> pdc = new PDCWrapper<>(getPlugin(), player);
-        boolean stripping = pdc.has("axe_stripping") && pdc.getBoolean("axe_stripping");
+        boolean stripping = !pdc.has(KeyTags.LOG_STRIPPING) || pdc.getBoolean(KeyTags.LOG_STRIPPING);
 
-        pdc.setBoolean("axe_stripping", !stripping);
+        pdc.setBoolean(KeyTags.LOG_STRIPPING, !stripping);
         player.spigot().sendMessage(stripping ? strippingBlocked : strippingAllowed);
         return true;
     }
