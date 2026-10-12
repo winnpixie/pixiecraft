@@ -14,6 +14,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -130,7 +132,18 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
             return; // do not incentivize the slaughtering of pets
         }
 
-        long drop = MathHelper.randomLong(1L, 101L);
+        long drop;
+        AttributeInstance maxHealth = victim.getAttribute(Attribute.MAX_HEALTH);
+        if (maxHealth != null) {
+            double value = maxHealth.getValue();
+            if (victim instanceof IronGolem) {
+                value /= 2.0;
+            }
+
+            drop = Math.max(1L, (long) ((value * 10.0) / 2.0));
+        } else {
+            drop = MathHelper.randomLong(1L, 101L);
+        }
 
         IUser user = getPlugin().getEconomy().getUserManager().get(attacker);
         user.getWallet().earn(drop);
