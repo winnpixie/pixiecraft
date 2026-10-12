@@ -10,10 +10,10 @@ connections:
   quit-message: "<red>- {PLAYER_NAME}"
   messages-of-the-day:
     - "<dark_red>We steal your data and sell it to the highest bidder."
-    - "<gold>It's as <bold>shrimple<reset><gold> as that."
-    - "<white>So, what can I <obfuscated><bold>FISHING<reset><white> get you?"
+    - "<gold>It's as <bold>shrimple <reset><gold>as that."
+    - "<white>So, what can I <obfuscated><bold>FISHING <reset><white>get you?"
     - "<gold>You are one in a <bold>krillion<reset><gold>."
-    - "<red><bold>Krill<reset><red> yourself."
+    - "<red><bold>Krill <reset><red>yourself."
 
 server-rules:
   - "Be respectful towards your fellow gamers."
