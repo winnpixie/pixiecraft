@@ -1,6 +1,5 @@
 package io.github.winnpixie.pixiecraft.mature.plugin.commands;
 
-import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.WarningMessages;
 import io.github.winnpixie.pixiecraft.commons.commands.PlayerCommand;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
@@ -15,8 +14,11 @@ import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
+
     public CoinFlipCommand(PxMaturePlugin plugin) {
         super("coin-flip", plugin);
     }
@@ -50,7 +52,7 @@ public class CoinFlipCommand extends PlayerCommand<PxMaturePlugin> {
             return false;
         }
 
-        String flip = MathHelper.randomInt(0, 100) < 50 ?
+        String flip = random.nextInt(0, 100) < 50 ?
                 "Heads" : "Tails";
 
         player.spigot().sendMessage(new ComponentBuilder("The coin landed on... ")
