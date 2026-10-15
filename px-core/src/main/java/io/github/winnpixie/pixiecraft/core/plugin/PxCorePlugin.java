@@ -4,6 +4,7 @@ import io.github.winnpixie.pixiecraft.commons.config.ConfigurationLoader;
 import io.github.winnpixie.pixiecraft.core.plugin.commands.*;
 import io.github.winnpixie.pixiecraft.core.plugin.handlers.ConnectionHandler;
 import io.github.winnpixie.pixiecraft.core.plugin.handlers.EntityActionHandler;
+import io.github.winnpixie.pixiecraft.core.plugin.handlers.LegacyBoKHandler;
 import io.github.winnpixie.pixiecraft.core.plugin.handlers.PlayerActionHandler;
 import io.github.winnpixie.pixiecraft.economy.plugin.PxEconomyPlugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,6 +30,7 @@ public class PxCorePlugin extends JavaPlugin {
         new ConnectionHandler(this).register();
         new PlayerActionHandler(this).register();
         new EntityActionHandler(this).register();
+        new LegacyBoKHandler(this).register();
 
         new HatCommand(this).register();
         new PingCommand(this).register();

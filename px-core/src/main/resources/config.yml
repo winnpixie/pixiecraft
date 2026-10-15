@@ -19,3 +19,14 @@ server-rules:
   - "Be respectful towards your fellow gamers."
   - "Do not cause significant lag to the server."
   - "If something seems wrong, express your concerns to winnpixie."
+
+bok:
+  worn:
+    price: 50.00
+    max-levels: 30
+  novice:
+    price: 100.00
+    max-levels: 150
+  grand:
+    price: 250.00
+    max-levels: 300

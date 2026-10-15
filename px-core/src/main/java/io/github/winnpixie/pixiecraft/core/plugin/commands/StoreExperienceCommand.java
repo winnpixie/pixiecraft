@@ -60,12 +60,8 @@ public class StoreExperienceCommand extends PlayerCommand<PxCorePlugin> {
                         "If one so desires to",
                         "read such arcane texts,",
                         "they shall inherit",
-                        "%d level(s) of experience.".formatted(levels),
-                        "\247f ", // can a blank line be... blank?
-                        "With great power comes",
-                        "great responsibility...")
-                )
-                .craft(ItemMeta.class, meta -> {
+                        "%d level(s) of experience.".formatted(levels))
+                ).craft(ItemMeta.class, meta -> {
                     PDCWrapper<PxCorePlugin> pdc = new PDCWrapper<>(getPlugin(), meta);
                     pdc.setInt("bok_levels", pdcValue);
                 });

@@ -19,6 +19,7 @@ public class EntityActionHandler extends BaseEventHandler<PxCorePlugin> {
             return;
         }
 
+        // 1 / 1000th chance of spawning a charged creeper
         creeper.setPowered(MathHelper.randomInt(0, 1000) == 0);
     }
 }
