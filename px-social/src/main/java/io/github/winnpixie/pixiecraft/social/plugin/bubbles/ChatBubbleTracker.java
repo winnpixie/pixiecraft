@@ -40,6 +40,9 @@ public class ChatBubbleTracker {
                     entity.setBillboard(Display.Billboard.CENTER);
                     entity.setTeleportDuration(1);
                     entity.setInterpolationDuration(1);
+
+                    // hide bubble from owning player to keep it from intruding screen space
+                    player.hideEntity(plugin, entity);
                 });
 
         ChatBubble bubble = new ChatBubble(id, display);
