@@ -2,7 +2,6 @@ package io.github.winnpixie.pixiecraft.combat.plugin.handlers;
 
 import io.github.winnpixie.pixiecraft.combat.plugin.PxCombatPlugin;
 import io.github.winnpixie.pixiecraft.commons.BaseEventHandler;
-import io.github.winnpixie.pixiecraft.commons.MathHelper;
 import io.github.winnpixie.pixiecraft.commons.builders.ItemBuilder;
 import io.github.winnpixie.pixiecraft.economy.api.IUser;
 import io.github.winnpixie.pixiecraft.economy.api.IWallet;
@@ -24,7 +23,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
+
     public PlayerCombatHandler(PxCombatPlugin plugin) {
         super(plugin);
     }
@@ -95,7 +98,7 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
             return;
         }
 
-        long drop = MathHelper.randomLong(1L, 101L);
+        long drop = random.nextLong(1L, 101L);
         drop = Math.min(drop, wallet.getBalance());
         wallet.spend(drop);
 
@@ -133,16 +136,17 @@ public class PlayerCombatHandler extends BaseEventHandler<PxCombatPlugin> {
         }
 
         long drop;
-        AttributeInstance maxHealth = victim.getAttribute(Attribute.MAX_HEALTH);
-        if (maxHealth != null) {
-            double value = maxHealth.getValue();
+        AttributeInstance maxHealthAttr = victim.getAttribute(Attribute.MAX_HEALTH);
+        if (maxHealthAttr != null) {
+            double attrValue = maxHealthAttr.getValue();
             if (victim instanceof IronGolem) {
-                value /= 2.0;
+                attrValue /= 2.00;
             }
 
-            drop = Math.max(1L, (long) ((value * 10.0) / 2.0));
+            long value = Math.max(1L, (long) (attrValue * 10.00));
+            drop = random.nextLong(1L, value);
         } else {
-            drop = MathHelper.randomLong(1L, 101L);
+            drop = random.nextLong(1L, 101L);
         }
 
         IUser user = getPlugin().getEconomy().getUserManager().get(attacker);
