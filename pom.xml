@@ -56,7 +56,6 @@
 
         <!-- The rest. -->
         <module>px-agriculture</module>
-        <module>px-anticheat</module>
         <module>px-combat</module>
         <module>px-core</module>
         <module>px-fx</module>
