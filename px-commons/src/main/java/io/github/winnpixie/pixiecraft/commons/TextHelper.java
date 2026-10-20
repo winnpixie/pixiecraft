@@ -120,4 +120,8 @@ public class TextHelper {
         text = LEGACY_HEX_PATTERN.matcher(text).replaceAll(transformer);
         return HEX_TAG_PATTERN.matcher(text).replaceAll(transformer);
     }
+
+    public static String reverse(String text) {
+        return new StringBuilder(text).reverse().toString();
+    }
 }
