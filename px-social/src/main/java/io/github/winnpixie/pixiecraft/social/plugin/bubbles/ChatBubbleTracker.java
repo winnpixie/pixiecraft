@@ -41,8 +41,9 @@ public class ChatBubbleTracker {
                     entity.setTeleportDuration(1);
                     entity.setInterpolationDuration(1);
 
+                    // FIXME: This needs better tracking. The entity becomes visible if the player teleports.
                     // hide bubble from owning player to keep it from intruding screen space
-                    player.hideEntity(plugin, entity);
+                    // player.hideEntity(plugin, entity);
                 });
 
         ChatBubble bubble = new ChatBubble(id, display);

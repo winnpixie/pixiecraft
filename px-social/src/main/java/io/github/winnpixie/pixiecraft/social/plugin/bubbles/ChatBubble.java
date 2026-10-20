@@ -1,6 +1,7 @@
 package io.github.winnpixie.pixiecraft.social.plugin.bubbles;
 
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
 
@@ -47,8 +48,14 @@ public class ChatBubble {
             return;
         }
 
-        if (!display.teleport(player.getLocation()
-                .add(0.0, 0.47 + player.getHeight(), 0.0))) {
+        Location location = player.getLocation();
+        // TODO: Make horizontal look vector accessible via pxCommons?
+        float yaw = (float) Math.toRadians(location.getYaw());
+        float vx = (float) -Math.sin(yaw);
+        float vz = (float) Math.cos(yaw);
+
+        if (!display.teleport(location
+                .add(vx * -0.25, player.getHeight() + 0.47, vz * -0.25))) {
             tracker.remove(id);
             tracker.add(player);
         }

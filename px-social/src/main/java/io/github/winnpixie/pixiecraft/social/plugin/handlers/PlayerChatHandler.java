@@ -56,11 +56,11 @@ public class PlayerChatHandler extends BaseEventHandler<PxSocialPlugin> {
         char channelColor = GLOBAL_CHANNEL.equals(chatChannel) ? '8' : '7';
         String fmt = "\u00A7%c[#%s] \u00A7r".formatted(channelColor, chatChannel);
         if (pdc.has("nickname")) {
-            fmt += "\"%1$s\u00A7r\"";
+            fmt += "%1$s\u00A78*";
         } else {
             fmt += "%1$s";
         }
-        fmt += "\u00A7r: %2$s"; // Reset probably isn't necessary here, whatever
+        fmt += "\u00A77: \u00A7r%2$s"; // Reset probably isn't necessary here, whatever
         event.setFormat(fmt);
 
         // Handle bubbles
